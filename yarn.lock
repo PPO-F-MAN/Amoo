@@ -29,6 +29,7 @@ __metadata:
     eslint-plugin-react-hooks: ^4.6.0
     eslint-plugin-simple-import-sort: ^8.0.0
     framer-motion: ^8.0.2
+    jotai: ^1.12.0
     prettier: ^2.8.1
     react: ^18.2.0
     react-dom: ^18.2.0
@@ -4219,6 +4220,46 @@ __metadata:
   dependencies:
     isarray: 1.0.0
   checksum: 811c6f5a866877d31f0606a88af4a45f282544de886bf29f6a34c46616a1ae2ed17076cc6bf34c0128f33eecf7e1fcaa2c82cf3770560d3e26810894e96ae79f
+  languageName: node
+  linkType: hard
+
+"jotai@npm:^1.12.0":
+  version: 1.12.0
+  resolution: "jotai@npm:1.12.0"
+  peerDependencies:
+    "@babel/core": "*"
+    "@babel/template": "*"
+    jotai-immer: "*"
+    jotai-optics: "*"
+    jotai-redux: "*"
+    jotai-tanstack-query: "*"
+    jotai-urql: "*"
+    jotai-valtio: "*"
+    jotai-xstate: "*"
+    jotai-zustand: "*"
+    react: ">=16.8"
+  peerDependenciesMeta:
+    "@babel/core":
+      optional: true
+    "@babel/template":
+      optional: true
+    jotai-immer:
+      optional: true
+    jotai-optics:
+      optional: true
+    jotai-redux:
+      optional: true
+    jotai-tanstack-query:
+      optional: true
+    jotai-urql:
+      optional: true
+    jotai-valtio:
+      optional: true
+    jotai-xstate:
+      optional: true
+    jotai-zustand:
+      optional: true
+  checksum: ffc815a4b73ac027d4eceb5b2c5afb79cfae75ebf06cf5f40bbccd88a93ac1a66a1c08d38d65f0d50510ca906f2ae41aa40a04fb3dea8cc84b34b322cda36490
   languageName: node
   linkType: hard
 
