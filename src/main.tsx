@@ -2,13 +2,13 @@ import { ChakraProvider } from "@chakra-ui/react";
 import React from "react";
 import ReactDOM from "react-dom/client";
 
-import App from "./App";
+import Routes from "./Routes";
 
 const rootElement = document.getElementById("root");
 ReactDOM.createRoot(rootElement as HTMLElement).render(
   <React.StrictMode>
     <ChakraProvider resetCSS>
-      <App />
+      <Routes />
     </ChakraProvider>
   </React.StrictMode>,
 );

@@ -1,6 +1,5 @@
-// TODO: router
 function App() {
-  return <div></div>;
+  return <div>Amoo</div>;
 }
 
 export default App;
