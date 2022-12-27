@@ -1,5 +1,11 @@
+import { Heading } from "@chakra-ui/react";
+
 function App() {
-  return <div>Amoo</div>;
+  return (
+    <div>
+      <Heading>Amoo</Heading>
+    </div>
+  );
 }
 
 export default App;
