@@ -10,4 +10,5 @@
     "typescriptreact",
     "json"
   ],
+  "typescript.tsdk": "node_modules/typescript/lib",
 }
