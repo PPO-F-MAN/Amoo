@@ -3,27 +3,42 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
+import Game1 from "./pages/game/game1";
+import Game2 from "./pages/game/game2";
+import Game3 from "./pages/game/game3";
 
-const PAGES: Record<string, any> = import.meta.glob("/src/pages/**/[a-z[]*.tsx", {
-  import: "default",
-  eager: true,
-});
+// TODO: invalid hook call 에러 뜸
+// const PAGES: Record<string, any> = import.meta.glob("/src/pages/**/[a-z[]*.tsx", {
+//   import: "default",
+//   eager: true,
+// });
 
-const pages = Object.keys(PAGES).map((page) => {
-  const path = page
-    .replace(/\/src\/pages|index|\.tsx$/g, "")
-    .replace(/\[\.{3}.+\]/, "*")
-    .replace(/\[(.+)\]/, ":$1");
+// const pages = Object.keys(PAGES).map((page) => {
+//   const path = page
+//     .replace(/\/src\/pages|index|\.tsx$/g, "")
+//     .replace(/\[\.{3}.+\]/, "*")
+//     .replace(/\[(.+)\]/, ":$1");
 
-  return { path, element: PAGES[page]() };
-});
+//   return { path, element: PAGES[page]() };
+// });
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
-  ...pages,
+  {
+    path: "/game/game1",
+    element: <Game1 />,
+  },
+  {
+    path: "/game/game2",
+    element: <Game2 />,
+  },
+  {
+    path: "/game/game3",
+    element: <Game3 />,
+  },
 ]);
 
 const Routes = () => {
