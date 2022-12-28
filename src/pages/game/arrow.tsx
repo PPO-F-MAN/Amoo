@@ -1,25 +1,12 @@
 import { Center, Flex, Heading, Progress, Text } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 
+import useArrowGame, { ARROW_LENGTH } from "../../hooks/useArrowGame";
 import useTimer from "../../hooks/useTimer";
 
-interface Item {
-  id: number;
-  direction: "left" | "right";
-}
-
-const LENGTH = 5;
-const add = (id: number): Item => ({ direction: Math.random() > 0.5 ? "left" : "right", id });
-
 const ArrowGame = () => {
-  const count = useRef<number>(0);
-  const [combo, setCombo] = useState<number>(0);
-  const [score, setScore] = useState<number>(0);
-  const [currentArrowArray, setCurrentArrowArray] = useState<Item[]>(
-    Array.from({ length: LENGTH }, () => add(count.current++)),
-  );
-
+  const { dispatch, arrows, combo, score, arrowCount } = useArrowGame();
   const { time, timerInterval, resetTime, addTime, subtractTime } = useTimer({
     ms: 100,
     initialTime: 100,
@@ -36,27 +23,23 @@ const ArrowGame = () => {
 
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
-      if (e.key === "ArrowLeft" && currentArrowArray[LENGTH - 1].direction === "left") {
-        setCombo((prev) => prev + 1);
-        setScore((prev) => prev + 1);
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+
+      if (e.key === "ArrowLeft" && arrows[ARROW_LENGTH - 1].direction === "left") {
+        dispatch({ type: "CORRECT", arrowCount });
         addTime(10);
-        currentArrowArray.pop();
-        setCurrentArrowArray([add(count.current++), ...currentArrowArray]);
-      } else if (e.key === "ArrowRight" && currentArrowArray[LENGTH - 1].direction === "right") {
-        setCombo((prev) => prev + 1);
-        setScore((prev) => prev + 1);
+      } else if (e.key === "ArrowRight" && arrows[ARROW_LENGTH - 1].direction === "right") {
+        dispatch({ type: "CORRECT", arrowCount });
         addTime(10);
-        currentArrowArray.pop();
-        setCurrentArrowArray([add(count.current++), ...currentArrowArray]);
       } else {
-        setCombo(0);
+        dispatch({ type: "WRONG" });
         subtractTime(10);
       }
     };
 
     window.addEventListener("keydown", keyDownHandler);
     return () => window.removeEventListener("keydown", keyDownHandler);
-  }, [addTime, currentArrowArray, subtractTime]);
+  }, [addTime, arrowCount, arrows, dispatch, subtractTime]);
 
   return (
     <Center margin="auto" maxWidth="600px" width="100vw" height="100vh" flexDirection="column">
@@ -64,7 +47,7 @@ const ArrowGame = () => {
 
       <Flex justifyContent="space-evenly" alignItems="center" direction="column" height="70%">
         <AnimatePresence mode="popLayout">
-          {currentArrowArray.map(({ direction, id }, index) => (
+          {arrows.map(({ direction, id }, index) => (
             <motion.div
               layout
               key={id}
@@ -80,9 +63,9 @@ const ArrowGame = () => {
                 alignItems="center"
                 border="3px solid black"
                 margin="10px"
-                width={index === LENGTH - 1 ? "70px" : "50px"}
-                height={index === LENGTH - 1 ? "70px" : "50px"}
-                fontSize={index === LENGTH - 1 ? "36px" : "28px"}
+                width={index === ARROW_LENGTH - 1 ? "70px" : "50px"}
+                height={index === ARROW_LENGTH - 1 ? "70px" : "50px"}
+                fontSize={index === ARROW_LENGTH - 1 ? "36px" : "28px"}
               >
                 {direction === "left" ? "←" : "→"}
               </Flex>
