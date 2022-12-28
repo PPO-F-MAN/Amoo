@@ -1,55 +1,53 @@
-import { Box, Center, Flex, Heading, Progress, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Text } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
 
-import useArrowGame, { ARROW_LENGTH } from "../../hooks/useArrowGame";
-import useTimer from "../../hooks/useTimer";
+import {
+  ARROW_LENGTH,
+  arrowsAtom,
+  comboAtom,
+  correctAtom,
+  lastArrowAtom,
+  scoreAtom,
+  wrongAtom,
+} from "../../atoms/left-right-game";
+import Timer from "../../components/LeftRight/Timer";
 
-const ArrowGame = () => {
-  const { dispatch, arrows, combo, score, arrowCount } = useArrowGame();
-  const { time, timerInterval, resetTime, addTime, subtractTime } = useTimer({
-    ms: 100,
-    initialTime: 100,
-  });
+const LeftRightGame = () => {
+  const arrows = useAtomValue(arrowsAtom);
+  const lastArrow = useAtomValue(lastArrowAtom);
+  const score = useAtomValue(scoreAtom);
+  const combo = useAtomValue(comboAtom);
 
-  useEffect(() => {
-    if (time === 0) {
-      clearInterval(timerInterval.current);
-      // alert("Game Over");
-    }
-
-    if (time > 100) resetTime();
-  }, [resetTime, time, timerInterval]);
+  const correct = useSetAtom(correctAtom);
+  const wrong = useSetAtom(wrongAtom);
 
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
       if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
 
-      if (e.key === "ArrowLeft" && arrows[ARROW_LENGTH - 1].direction === "left") {
-        dispatch({ type: "CORRECT", arrowCount });
-        addTime(10);
-      } else if (e.key === "ArrowRight" && arrows[ARROW_LENGTH - 1].direction === "right") {
-        dispatch({ type: "CORRECT", arrowCount });
-        addTime(10);
+      if (
+        (e.key === "ArrowLeft" && lastArrow.direction === "left") ||
+        (e.key === "ArrowRight" && lastArrow.direction === "right")
+      ) {
+        correct();
       } else {
-        dispatch({ type: "WRONG" });
-        subtractTime(10);
+        wrong();
       }
     };
 
     window.addEventListener("keydown", keyDownHandler);
     return () => window.removeEventListener("keydown", keyDownHandler);
-  }, [addTime, arrowCount, arrows, dispatch, subtractTime]);
+  }, [arrows, correct, lastArrow.direction, wrong]);
 
-  const handleTouchPadClick = (direction: "left" | "right") => {
-    if (arrows[ARROW_LENGTH - 1].direction === direction) {
-      dispatch({ type: "CORRECT", arrowCount });
-      addTime(10);
+  function handleTouchPadClick(direction: "left" | "right") {
+    if (lastArrow.direction === direction) {
+      correct();
     } else {
-      dispatch({ type: "WRONG" });
-      subtractTime(10);
+      wrong();
     }
-  };
+  }
 
   return (
     <Center
@@ -69,7 +67,7 @@ const ArrowGame = () => {
         backgroundColor="blackAlpha.100"
         onClick={() => handleTouchPadClick("left")}
       >
-        left
+        왼쪽
       </Box>
       <Box
         position="absolute"
@@ -80,10 +78,10 @@ const ArrowGame = () => {
         backgroundColor="blackAlpha.100"
         onClick={() => handleTouchPadClick("right")}
       >
-        right
+        오른쪽
       </Box>
 
-      <Heading>Arrow Game</Heading>
+      <Heading>왼쪽 & 오른쪽</Heading>
 
       <Flex justifyContent="space-evenly" alignItems="center" direction="column" height="70%">
         <AnimatePresence mode="popLayout">
@@ -113,13 +111,11 @@ const ArrowGame = () => {
           ))}
         </AnimatePresence>
       </Flex>
-
       <Text>Combo: {combo}</Text>
       <Text>Score: {score}</Text>
-      <Text>Timer: {time}</Text>
-      <Progress value={time} height="20px" width="80%" colorScheme="pink" />
+      <Timer />
     </Center>
   );
 };
 
-export default ArrowGame;
+export default LeftRightGame;

@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useAtom } from "jotai";
+import { useCallback, useEffect, useRef } from "react";
+
+import { timeAtom } from "../atoms/left-right-game";
 
 interface useTimerProps {
   /**
@@ -16,19 +19,11 @@ interface useTimerProps {
 
 const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
   const timerInterval = useRef<ReturnType<typeof setInterval>>();
-  const [time, setTime] = useState(initialTime);
+  const [time, setTime] = useAtom(timeAtom);
 
   const resetTime = useCallback(() => {
     setTime(initialTime);
-  }, [initialTime]);
-
-  const addTime = useCallback((amount: number) => {
-    setTime((prevTime) => prevTime + amount);
-  }, []);
-
-  const subtractTime = useCallback((amount: number) => {
-    setTime((prevTime) => prevTime - amount);
-  }, []);
+  }, [initialTime, setTime]);
 
   useEffect(() => {
     timerInterval.current = setInterval(() => {
@@ -38,14 +33,19 @@ const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
     return () => {
       clearInterval(timerInterval.current);
     };
-  }, [ms]);
+  }, [ms, setTime]);
+
+  useEffect(() => {
+    if (time === 0) {
+      clearInterval(timerInterval.current);
+      // alert("Game Over");
+    }
+
+    if (time > 100) resetTime();
+  }, [resetTime, time, timerInterval]);
 
   return {
     time,
-    timerInterval,
-    resetTime,
-    addTime,
-    subtractTime,
   };
 };
 
