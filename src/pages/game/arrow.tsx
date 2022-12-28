@@ -64,7 +64,7 @@ const ArrowGame = () => {
         position="absolute"
         left={0}
         bottom={0}
-        width="50%"
+        width="40%"
         height="50%"
         backgroundColor="blackAlpha.100"
         onClick={() => handleTouchPadClick("left")}
@@ -75,7 +75,7 @@ const ArrowGame = () => {
         position="absolute"
         right={0}
         bottom={0}
-        width="50%"
+        width="40%"
         height="50%"
         backgroundColor="blackAlpha.100"
         onClick={() => handleTouchPadClick("right")}
