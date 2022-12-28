@@ -2,9 +2,7 @@ import { Center, Flex, Heading, Progress, Text } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
-// 요구사항
-// 1. currentArrow는 좌, 우 둘 중 하나로 랜덤으로 나온다.
-// 2. currentArrow가 좌일 때는 좌측 화살표를, 우일 때는 우측 화살표를 누르면 combo가 1씩 증가한다.
+import useTimer from "../../hooks/useTimer";
 
 interface Item {
   id: number;
@@ -22,52 +20,46 @@ const ArrowGame = () => {
     Array.from({ length: LENGTH }, () => add(count.current++)),
   );
 
-  const [timer, setTimer] = useState<number>(100);
-  const interval = useRef<ReturnType<typeof setInterval>>();
+  const { time, timerInterval, resetTime, addTime, subtractTime } = useTimer({
+    ms: 100,
+    initialTime: 100,
+  });
 
   useEffect(() => {
-    interval.current = setInterval(() => {
-      setTimer((prev) => prev - 1);
-    }, 100);
-
-    return () => clearInterval(interval.current);
-  }, []);
-
-  useEffect(() => {
-    if (timer === 0) {
-      clearInterval(interval.current);
+    if (time === 0) {
+      clearInterval(timerInterval.current);
       // alert("Game Over");
     }
 
-    if (timer > 100) setTimer(100);
-  }, [timer]);
+    if (time > 100) resetTime();
+  }, [resetTime, time, timerInterval]);
 
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft" && currentArrowArray[LENGTH - 1].direction === "left") {
         setCombo((prev) => prev + 1);
         setScore((prev) => prev + 1);
-        setTimer((prev) => prev + 10);
+        addTime(10);
         currentArrowArray.pop();
         setCurrentArrowArray([add(count.current++), ...currentArrowArray]);
       } else if (e.key === "ArrowRight" && currentArrowArray[LENGTH - 1].direction === "right") {
         setCombo((prev) => prev + 1);
         setScore((prev) => prev + 1);
-        setTimer((prev) => prev + 10);
+        addTime(10);
         currentArrowArray.pop();
         setCurrentArrowArray([add(count.current++), ...currentArrowArray]);
       } else {
         setCombo(0);
-        setTimer((prev) => prev - 10);
+        subtractTime(10);
       }
     };
 
     window.addEventListener("keydown", keyDownHandler);
     return () => window.removeEventListener("keydown", keyDownHandler);
-  }, [currentArrowArray]);
+  }, [addTime, currentArrowArray, subtractTime]);
 
   return (
-    <Center height="100vh" flexDirection="column">
+    <Center margin="auto" maxWidth="600px" width="100vw" height="100vh" flexDirection="column">
       <Heading>Arrow Game</Heading>
 
       <Flex justifyContent="space-evenly" alignItems="center" direction="column" height="70%">
@@ -101,8 +93,8 @@ const ArrowGame = () => {
 
       <Text>Combo: {combo}</Text>
       <Text>Score: {score}</Text>
-      <Text>Timer: {timer}</Text>
-      <Progress value={timer} height="20px" width="80vw" colorScheme="pink" />
+      <Text>Timer: {time}</Text>
+      <Progress value={time} height="20px" width="80%" colorScheme="pink" />
     </Center>
   );
 };
