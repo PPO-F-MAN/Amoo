@@ -1,8 +1,10 @@
-import { Box, Button, Container, Flex, FormControl, Input } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, FormControl, Input, useDisclosure } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import type { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
+
+import { GameOverModal } from "../../components/common";
 
 const LIFES: number = 10;
 const ANSWER: string = "answer";
@@ -13,6 +15,7 @@ const Game1 = () => {
   const [answer, setAnswer] = useState<string[]>([]);
   const [userAnswer, setUserAnswer] = useState<string[]>([]);
   const [lifes, setLifes] = useState<number>(LIFES);
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
     // 랜덤으로 단어 설정
@@ -50,6 +53,7 @@ const Game1 = () => {
     if (value.length > 1 && value === ANSWER) {
       // 정답 처리
       resetInput();
+      onOpen();
       return;
     }
 
@@ -63,6 +67,8 @@ const Game1 = () => {
     decreaseLife();
     resetInput();
   };
+
+  const handleRestart = () => {};
 
   return (
     <Container centerContent>
@@ -108,6 +114,12 @@ const Game1 = () => {
           </Flex>
         </form>
       </Flex>
+      <GameOverModal
+        status="success"
+        isOpen={isOpen}
+        onClose={onClose}
+        handleRestart={handleRestart}
+      />
     </Container>
   );
 };
