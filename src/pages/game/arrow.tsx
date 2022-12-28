@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, Text } from "@chakra-ui/react";
+import { Center, Flex, Heading, Progress, Text } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 
@@ -14,25 +14,51 @@ interface Item {
 const LENGTH = 5;
 const add = (id: number): Item => ({ direction: Math.random() > 0.5 ? "left" : "right", id });
 
-const Arrow = () => {
-  const [combo, setCombo] = useState<number>(0);
+const ArrowGame = () => {
   const count = useRef<number>(0);
+  const [combo, setCombo] = useState<number>(0);
+  const [score, setScore] = useState<number>(0);
   const [currentArrowArray, setCurrentArrowArray] = useState<Item[]>(
     Array.from({ length: LENGTH }, () => add(count.current++)),
   );
+
+  const [timer, setTimer] = useState<number>(100);
+  const interval = useRef<ReturnType<typeof setInterval>>();
+
+  useEffect(() => {
+    interval.current = setInterval(() => {
+      setTimer((prev) => prev - 1);
+    }, 100);
+
+    return () => clearInterval(interval.current);
+  }, []);
+
+  useEffect(() => {
+    if (timer === 0) {
+      clearInterval(interval.current);
+      // alert("Game Over");
+    }
+
+    if (timer > 100) setTimer(100);
+  }, [timer]);
 
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
       if (e.key === "ArrowLeft" && currentArrowArray[LENGTH - 1].direction === "left") {
         setCombo((prev) => prev + 1);
+        setScore((prev) => prev + 1);
+        setTimer((prev) => prev + 10);
         currentArrowArray.pop();
         setCurrentArrowArray([add(count.current++), ...currentArrowArray]);
-      }
-
-      if (e.key === "ArrowRight" && currentArrowArray[LENGTH - 1].direction === "right") {
+      } else if (e.key === "ArrowRight" && currentArrowArray[LENGTH - 1].direction === "right") {
         setCombo((prev) => prev + 1);
+        setScore((prev) => prev + 1);
+        setTimer((prev) => prev + 10);
         currentArrowArray.pop();
         setCurrentArrowArray([add(count.current++), ...currentArrowArray]);
+      } else {
+        setCombo(0);
+        setTimer((prev) => prev - 10);
       }
     };
 
@@ -44,26 +70,27 @@ const Arrow = () => {
     <Center height="100vh" flexDirection="column">
       <Heading>Arrow Game</Heading>
 
-      <Flex justifyContent="space-evenly" direction="column" height="70%">
+      <Flex justifyContent="space-evenly" alignItems="center" direction="column" height="70%">
         <AnimatePresence mode="popLayout">
-          {currentArrowArray.map(({ direction, id }) => (
+          {currentArrowArray.map(({ direction, id }, index) => (
             <motion.div
               layout
               key={id}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0, translateX: direction === "left" ? -100 : 100 }}
-              transition={{ duration: 0.2, type: "spring" }}
+              transition={{ duration: 0.25, type: "spring" }}
             >
               <Flex
                 borderRadius="8px"
                 justifyContent="center"
+                fontWeight="bold"
                 alignItems="center"
-                border="1px solid black"
+                border="3px solid black"
                 margin="10px"
-                width="50px"
-                height="50px"
-                fontSize="24px"
+                width={index === LENGTH - 1 ? "70px" : "50px"}
+                height={index === LENGTH - 1 ? "70px" : "50px"}
+                fontSize={index === LENGTH - 1 ? "36px" : "28px"}
               >
                 {direction === "left" ? "←" : "→"}
               </Flex>
@@ -73,8 +100,11 @@ const Arrow = () => {
       </Flex>
 
       <Text>Combo: {combo}</Text>
+      <Text>Score: {score}</Text>
+      <Text>Timer: {timer}</Text>
+      <Progress value={timer} height="20px" width="80vw" colorScheme="pink" />
     </Center>
   );
 };
 
-export default Arrow;
+export default ArrowGame;
