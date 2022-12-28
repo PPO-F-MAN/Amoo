@@ -5,22 +5,27 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 import { GameOverModal } from "../../components/common";
+import { getNewWord } from "../../utils";
 
 const LIFES: number = 10;
-const ANSWER: string = "answer";
 
 const Game1 = () => {
   const toast = useToast();
   const [value, setValue] = useState<string>("");
-  const [answer, setAnswer] = useState<string[]>([]);
+  const [answer, setAnswer] = useState<string>("");
   const [userAnswer, setUserAnswer] = useState<string[]>([]);
   const [lifes, setLifes] = useState<number>(LIFES);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {
-    // 랜덤으로 단어 설정
-    setAnswer(ANSWER.split(""));
-    setUserAnswer(Array.from(new Array(ANSWER.length), () => ""));
+    try {
+      getNewWord().then((word: string) => {
+        setAnswer(word);
+        setUserAnswer(Array.from(new Array(word.length), () => ""));
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
 
   const handleAnswer = (event: ChangeEvent<HTMLInputElement>) => {
@@ -38,9 +43,9 @@ const Game1 = () => {
   const submitAnswer = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (value.length === 1 && ANSWER.includes(value)) {
+    if (value.length === 1 && answer.includes(value)) {
       const updateAnswer = userAnswer;
-      answer.forEach((alphabet: string, index: number) => {
+      answer.split("").forEach((alphabet: string, index: number) => {
         if (alphabet === value) {
           updateAnswer[index] = alphabet;
         }
@@ -50,7 +55,7 @@ const Game1 = () => {
       return;
     }
 
-    if (value.length > 1 && value === ANSWER) {
+    if (value.length > 1 && value === answer) {
       // 정답 처리
       resetInput();
       onOpen();
