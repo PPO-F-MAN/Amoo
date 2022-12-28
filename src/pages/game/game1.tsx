@@ -1,16 +1,5 @@
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Flex,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  Input,
-  Wrap,
-  WrapItem,
-} from "@chakra-ui/react";
+import { Box, Button, Container, Flex, FormControl, Input } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import type { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -19,6 +8,7 @@ const LIFES: number = 10;
 const ANSWER: string = "answer";
 
 const Game1 = () => {
+  const toast = useToast();
   const [value, setValue] = useState<string>("");
   const [answer, setAnswer] = useState<string[]>([]);
   const [userAnswer, setUserAnswer] = useState<string[]>([]);
@@ -38,9 +28,12 @@ const Game1 = () => {
     setLifes(lifes - 1);
   };
 
+  const resetInput = () => {
+    setValue("");
+  };
+
   const submitAnswer = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(value);
 
     if (value.length === 1 && ANSWER.includes(value)) {
       const updateAnswer = userAnswer;
@@ -50,17 +43,25 @@ const Game1 = () => {
         }
       });
       setUserAnswer(updateAnswer);
-      setValue("");
+      resetInput();
       return;
     }
 
     if (value.length > 1 && value === ANSWER) {
       // 정답 처리
+      resetInput();
       return;
     }
 
+    toast({
+      title: "오답입니다!",
+      status: "warning",
+      duration: 3000,
+      isClosable: true,
+    });
+
     decreaseLife();
-    setValue("");
+    resetInput();
   };
 
   return (
@@ -94,6 +95,7 @@ const Game1 = () => {
           <Flex margin="10" gap={2}>
             <FormControl>
               <Input
+                colorScheme="primary"
                 type="text"
                 value={value}
                 onChange={(e) => handleAnswer(e)}
