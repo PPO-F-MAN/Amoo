@@ -3,9 +3,9 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import App from "./App";
+import Arrow from "./pages/game/arrow";
 import Game1 from "./pages/game/game1";
 import Game2 from "./pages/game/game2";
-import Game3 from "./pages/game/game3";
 
 // TODO: invalid hook call 에러 뜸
 // const PAGES: Record<string, any> = import.meta.glob("/src/pages/**/[a-z[]*.tsx", {
@@ -36,8 +36,8 @@ const router = createBrowserRouter([
     element: <Game2 />,
   },
   {
-    path: "/game/game3",
-    element: <Game3 />,
+    path: "/game/arrow",
+    element: <Arrow />,
   },
 ]);
 
