@@ -1,4 +1,17 @@
-import type { ChangeEvent, MouseEvent } from "react";
+import {
+  Box,
+  Button,
+  Center,
+  Container,
+  Flex,
+  FormControl,
+  FormHelperText,
+  FormLabel,
+  Input,
+  Wrap,
+  WrapItem,
+} from "@chakra-ui/react";
+import type { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -25,8 +38,9 @@ const Game1 = () => {
     setLifes(lifes - 1);
   };
 
-  const submitAnswer = (event: MouseEvent<HTMLButtonElement>) => {
+  const submitAnswer = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log(value);
 
     if (value.length === 1 && ANSWER.includes(value)) {
       const updateAnswer = userAnswer;
@@ -50,31 +64,49 @@ const Game1 = () => {
   };
 
   return (
-    <div>
+    <Container centerContent>
       <h1>Game 1</h1>
-      <article>
+      <Flex minH={"70vh"} direction={"column"} justifyContent={"space-between"}>
         <div>
           <h2>결과 모니터</h2>
           <div>
             목숨 :
             {Array.from(new Array(lifes), () => "").map((key: string, index: number) => {
-              return <span key={`${key}-${index}`}>0</span>;
+              return <span key={`${key}-${index}`}>🔥</span>;
             })}
           </div>
-          <div>
-            {userAnswer.map((alphabet: string, index: number) => (
-              <span key={`${alphabet}-${index}`}>{alphabet || "_"}</span>
-            ))}
-          </div>
         </div>
-        <form>
-          <input type="text" value={value} onChange={(e) => handleAnswer(e)} pattern="[a-z]+$" />
-          <button type="submit" onClick={(e) => submitAnswer(e)}>
-            제출
-          </button>
+        <Flex justify={"space-around"}>
+          {userAnswer.map((alphabet: string, index: number) => (
+            <Box
+              marginTop={"18px"}
+              p="2"
+              minW={"30px"}
+              borderBottom="1px"
+              borderBottomColor="primary.400"
+              key={`${alphabet}-${index}`}
+            >
+              {alphabet || ""}
+            </Box>
+          ))}
+        </Flex>
+        <form onSubmit={(e) => submitAnswer(e)}>
+          <Flex margin="10" gap={2}>
+            <FormControl>
+              <Input
+                type="text"
+                value={value}
+                onChange={(e) => handleAnswer(e)}
+                pattern="[a-z]+$"
+              />
+            </FormControl>
+            <Button type="submit" colorScheme="primary">
+              제출
+            </Button>
+          </Flex>
         </form>
-      </article>
-    </div>
+      </Flex>
+    </Container>
   );
 };
 
