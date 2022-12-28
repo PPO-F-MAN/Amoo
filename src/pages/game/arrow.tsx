@@ -1,4 +1,4 @@
-import { Center, Flex, Heading, Progress, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Heading, Progress, Text } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
 
@@ -41,8 +41,48 @@ const ArrowGame = () => {
     return () => window.removeEventListener("keydown", keyDownHandler);
   }, [addTime, arrowCount, arrows, dispatch, subtractTime]);
 
+  const handleTouchPadClick = (direction: "left" | "right") => {
+    if (arrows[ARROW_LENGTH - 1].direction === direction) {
+      dispatch({ type: "CORRECT", arrowCount });
+      addTime(10);
+    } else {
+      dispatch({ type: "WRONG" });
+      subtractTime(10);
+    }
+  };
+
   return (
-    <Center margin="auto" maxWidth="600px" width="100vw" height="100vh" flexDirection="column">
+    <Center
+      position="relative"
+      margin="auto"
+      maxWidth="600px"
+      width="100vw"
+      height="100vh"
+      flexDirection="column"
+    >
+      <Box
+        position="absolute"
+        left={0}
+        bottom={0}
+        width="50%"
+        height="50%"
+        backgroundColor="blackAlpha.100"
+        onClick={() => handleTouchPadClick("left")}
+      >
+        left
+      </Box>
+      <Box
+        position="absolute"
+        right={0}
+        bottom={0}
+        width="50%"
+        height="50%"
+        backgroundColor="blackAlpha.100"
+        onClick={() => handleTouchPadClick("right")}
+      >
+        right
+      </Box>
+
       <Heading>Arrow Game</Heading>
 
       <Flex justifyContent="space-evenly" alignItems="center" direction="column" height="70%">
