@@ -13,7 +13,7 @@ export const AnswerBoard = () => {
           marginTop={"30px"}
           h={"30px"}
           textAlign="center"
-          minW={["10%", "10%", "100px"]}
+          minW={["10%", "10%", "50px"]}
           color="white"
           borderBottom={["1px", "2px", "4px"]}
           borderBottomColor="white"

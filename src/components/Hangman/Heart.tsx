@@ -48,126 +48,126 @@ const Piece = styled(motion.span)`
   border-right: 35px solid transparent;
 
   &:nth-of-type(14) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 700) as PrimaryColorType]};
     transform: rotate(30deg);
-    top: 36px;
-    left: -146px;
+    top: 34.5px;
+    left: -138px;
   }
 
   &:nth-of-type(13) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 600) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 0;
-    left: -114px;
+    left: -108px;
   }
 
   &:nth-of-type(12) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 600) as PrimaryColorType]};
     transform: rotate(-30deg);
-    top: 72px;
-    left: -114px;
+    top: 70px;
+    left: -108px;
   }
 
   &:nth-of-type(11) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 500) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 0;
-    left: -82px;
+    left: -78px;
   }
 
   &:nth-of-type(10) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 500) as PrimaryColorType]};
     transform: rotate(30deg);
-    top: 72px;
-    left: -82px;
+    top: 70px;
+    left: -78px;
   }
 
   &:nth-of-type(9) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 400) as PrimaryColorType]};
     transform: rotate(-30deg);
-    top: 36px;
-    left: -50px;
+    top: 34.5px;
+    left: -48px;
   }
 
   &:nth-of-type(8) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 400) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 0px;
-    left: 14px;
+    left: 12px;
   }
 
   &:nth-of-type(7) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 300) as PrimaryColorType]};
     transform: rotate(-30deg);
-    top: 36px;
-    left: 78px;
+    top: 34.5px;
+    left: 72px;
   }
 
   &:nth-of-type(6) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 200) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 0;
-    left: 46px;
+    left: 42px;
   }
 
   &:nth-of-type(5) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 200) as PrimaryColorType]};
     transform: rotate(30deg);
-    top: 36px;
+    top: 34.5px;
     left: -18px;
   }
 
   &:nth-of-type(4) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 200) as PrimaryColorType]};
     transform: rotate(30deg);
-    top: 72px;
-    left: 46px;
+    top: 70px;
+    left: 42px;
   }
 
   &:nth-of-type(3) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 100) as PrimaryColorType]};
     transform: rotate(-30deg);
-    top: 72px;
-    left: 14px;
+    top: 70px;
+    left: 12px;
   }
 
   &:nth-of-type(2) {
-    border-top: 60px solid
+    border-top: 61px solid
       ${({ bgColor }: { bgColor: PrimaryColorType }) =>
         Primary[(bgColor + 100) as PrimaryColorType]};
     transform: rotate(-30deg);
-    top: 108px;
-    left: -50px;
+    top: 105px;
+    left: -48px;
   }
 
   &:nth-of-type(1) {
-    border-top: 60px solid ${({ bgColor }: { bgColor: PrimaryColorType }) => Primary[bgColor]};
+    border-top: 61px solid ${({ bgColor }: { bgColor: PrimaryColorType }) => Primary[bgColor]};
     transform: rotate(30deg);
-    top: 108px;
+    top: 105px;
     left: -18px;
   }
 `;

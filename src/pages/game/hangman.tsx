@@ -7,6 +7,7 @@ import {
   Input,
   useDisclosure,
   useToast,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { useState } from "react";
@@ -74,8 +75,10 @@ const Hangman = () => {
   };
 
   return (
-    <Container bgColor="primary.900" centerContent>
-      <h1>Game 1</h1>
+    <Box bgColor="primary.900">
+      <h1>
+        <VisuallyHidden> Hangman</VisuallyHidden>
+      </h1>
       <Container minH={"100vh"}>
         <Heart />
         <AnswerBoard />
@@ -109,7 +112,7 @@ const Hangman = () => {
         onClose={handleRestart}
         handleRestart={handleRestart}
       />
-    </Container>
+    </Box>
   );
 };
 
