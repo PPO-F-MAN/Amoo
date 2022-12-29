@@ -1,27 +1,24 @@
+import { Flex } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { useAtomValue } from "jotai";
 
 import { lifesAtom } from "../../atoms/hangman";
+import { Primary } from "../../constants";
 
 export const Heart = () => {
   const lifes = useAtomValue(lifesAtom);
 
   return (
-    <Wrapper>
+    <Flex justifyContent="center" alignItems="center">
       <Contianer>
         {Array.from(new Array(lifes), () => "").map((key: string, index: number) => {
-          return <Piece key={`${key}-${index}`} />;
+          return <Piece border={Primary[400]} key={`${key}-${index}`} />;
         })}
       </Contianer>
-    </Wrapper>
+    </Flex>
   );
 };
 
-const Wrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
 const Contianer = styled.div`
   position: relative;
   display: inline-block;
@@ -36,83 +33,83 @@ const Piece = styled.span`
   width: 0px;
   height: 0px;
   margin-right: 10px;
-  border-top: 60px solid #050505;
+  border-top: 60px solid ${({ border }: { border: string }) => border};
   border-left: 35px solid transparent;
   border-right: 35px solid transparent;
 
-  &:nth-child(2n) {
+  &:nth-of-type(2n) {
     transform: rotate(-30deg);
   }
 
-  &:nth-child(2n-1) {
+  &:nth-of-type(2n-1) {
     transform: rotate(30deg);
   }
 
-  &:nth-child(14) {
+  &:nth-of-type(14) {
     top: 0;
     left: -114px;
   }
 
-  &:nth-child(13) {
+  &:nth-of-type(13) {
     top: 0;
     left: -82px;
   }
 
-  &:nth-child(12) {
+  &:nth-of-type(12) {
     top: 0px;
     left: 14px;
   }
 
-  &:nth-child(11) {
+  &:nth-of-type(11) {
     top: 0;
     left: 46px;
   }
 
-  &:nth-child(8) {
+  &:nth-of-type(8) {
     top: 36px;
     left: -50px;
   }
 
-  &:nth-child(7) {
+  &:nth-of-type(7) {
     top: 36px;
     left: -146px;
   }
 
-  &:nth-child(10) {
+  &:nth-of-type(10) {
     top: 36px;
     left: 78px;
   }
 
-  &:nth-child(9) {
+  &:nth-of-type(9) {
     top: 36px;
     left: -18px;
   }
 
-  &:nth-child(6) {
+  &:nth-of-type(6) {
     top: 72px;
     left: -114px;
   }
 
-  &:nth-child(5) {
+  &:nth-of-type(5) {
     top: 72px;
     left: -82px;
   }
 
-  &:nth-child(4) {
+  &:nth-of-type(4) {
     top: 72px;
     left: 14px;
   }
 
-  &:nth-child(3) {
+  &:nth-of-type(3) {
     top: 72px;
     left: 46px;
   }
 
-  &:nth-child(2) {
+  &:nth-of-type(2) {
     top: 108px;
     left: -50px;
   }
-  &:nth-child(1) {
+  &:nth-of-type(1) {
     top: 108px;
     left: -18px;
   }
