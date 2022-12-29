@@ -1,45 +1,54 @@
 /* eslint-disable no-unused-vars */
 import { Button, Flex } from "@chakra-ui/react";
-import type { MutableRefObject } from "react";
+import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
+import { currentNumberAtom, timerAtom } from "../../atoms/one-to-ten";
+import { BORDER_COLORS } from "./constants";
 import { getShuffledArray } from "./utils";
 
 interface CountNumberProps {
-  counter: MutableRefObject<number>;
-  handleTimeOver: (gameData: [number, boolean][]) => void;
+  handleEnd: (gameData: [number, boolean][]) => void;
 }
 
-const CountNumber = ({ counter, handleTimeOver }: CountNumberProps) => {
+const CountNumber = ({ handleEnd }: CountNumberProps) => {
   const [gameData, setGameData] = useState<[number, boolean][]>([]);
+  const [counter, setCounter] = useAtom(currentNumberAtom);
 
   useEffect(() => {
     const shuffledArray = getShuffledArray(50);
     setGameData(shuffledArray.map((number) => [number, false]));
-    console.time("game");
-    console.timeLog("game");
   }, []);
 
   const handleNumberClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
     const clickedNumber = +e.currentTarget.textContent!;
+    if (clickedNumber !== counter + 1) return;
 
-    if (clickedNumber !== counter.current + 1) return;
-
-    counter.current += 1;
+    setCounter(counter + 1);
     setGameData(gameData.map((data) => (data[0] === clickedNumber ? [data[0], true] : data)));
   };
 
   useEffect(() => {
-    handleTimeOver(gameData);
-  }, [handleTimeOver, gameData]);
+    handleEnd(gameData);
+  }, [handleEnd, gameData]);
 
   return (
-    <Flex w={320} flexWrap="wrap" justifyContent="center" m="auto" gap="2">
-      {gameData.map(([number, isClicked]) => (
+    <Flex w={290} flexWrap="wrap" justifyContent="center" m="auto" gap="1">
+      {gameData.map(([number, isClicked], i) => (
         <Button
           key={number}
-          w={5}
-          colorScheme={isClicked ? "whiteAlpha" : "blackAlpha"}
+          w={50}
+          h={50}
+          bg="none"
+          border={4}
+          borderStyle="solid"
+          borderColor={BORDER_COLORS[i]}
+          borderRadius={0}
+          fontSize={24}
+          fontWeight="light"
+          color="#ffffff"
+          opacity={isClicked ? 0 : 1}
+          _hover={{ bg: "none" }}
           onClick={handleNumberClick}
         >
           {number}
