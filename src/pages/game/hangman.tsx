@@ -7,6 +7,7 @@ import { useState } from "react";
 
 import { answerAtom, resetGameAtom, updateUserAnswerAtom, userLifeAtom } from "../../atoms/hangman";
 import { GameOverModal } from "../../components/common";
+import { Heart } from "../../components/Hangman/Heart";
 import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
 
 const Hangman = () => {
@@ -78,12 +79,7 @@ const Hangman = () => {
       <Flex minH={"70vh"} direction={"column"} justifyContent={"space-between"}>
         <div>
           <h2>결과 모니터</h2>
-          <div>
-            목숨 :
-            {Array.from(new Array(lifes), () => "").map((key: string, index: number) => {
-              return <span key={`${key}-${index}`}>🔥</span>;
-            })}
-          </div>
+          <Heart />
         </div>
         <Flex justify={"space-around"}>
           {userAnswer.map((alphabet: string, index: number) => (

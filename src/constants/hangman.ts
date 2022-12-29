@@ -1,6 +1,6 @@
 import type { TOAST_OPTIONS } from ".";
 
-export const LIFES: number = 10;
+export const LIFES: number = 14;
 export const LENGTH_OF_WORD: number = 7;
 
 export const TOAST_SUBMITTED: Partial<TOAST_OPTIONS> = {
