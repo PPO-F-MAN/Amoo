@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   Container,
   Flex,
@@ -10,6 +11,7 @@ import {
 import { useAtom } from "jotai";
 import { useState } from "react";
 
+import EnterIcon from "../../assets/hangman/enter.svg";
 import { answerAtom, resetGameAtom, updateUserAnswerAtom, userLifeAtom } from "../../atoms/hangman";
 import { GameOverModal } from "../../components/common";
 import { AnswerBoard } from "../../components/Hangman";
@@ -20,9 +22,9 @@ const Hangman = () => {
   const toast = useToast();
   const [, restartGame] = useAtom(resetGameAtom);
   const [lifes, setLifes] = useAtom(userLifeAtom);
-  const { isOpen, onOpen, onClose } = useDisclosure();
   const [answer] = useAtom(answerAtom);
   const [userAnswer, updateUserAnswer] = useAtom(updateUserAnswerAtom);
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [value, setValue] = useState("");
 
   const decreaseLife = () => {
@@ -72,28 +74,35 @@ const Hangman = () => {
   };
 
   return (
-    <Container centerContent>
+    <Container bgColor="primary.900" centerContent>
       <h1>Game 1</h1>
-      <Flex minH={"70vh"} direction={"column"} justifyContent={"space-between"}>
+      <Container minH={"100vh"}>
         <Heart />
         <AnswerBoard />
-        <form onSubmit={(e) => submitAnswer(e)}>
-          <Flex margin="10" gap={2}>
-            <FormControl>
-              <Input
-                colorScheme="primary"
-                type="text"
-                value={value}
-                onChange={(e) => setValue(e.target.value)}
-                pattern="[a-z]+$"
-              />
-            </FormControl>
-            <Button type="submit" colorScheme="primary">
-              제출
-            </Button>
-          </Flex>
-        </form>
-      </Flex>
+        <Container pos="fixed" left="0" right="0" bottom="20px">
+          <Box border="1px" borderColor="white">
+            <form onSubmit={(e) => submitAnswer(e)}>
+              <Flex margin="0" gap={2}>
+                <FormControl>
+                  <Input
+                    border="none"
+                    color="white"
+                    _focusVisible={{ outline: "none" }}
+                    colorScheme="primary"
+                    type="text"
+                    value={value}
+                    onChange={(e) => setValue(e.target.value)}
+                    pattern="[a-z]+$"
+                  />
+                </FormControl>
+                <Button bgColor="transparent" type="submit" colorScheme="primary">
+                  <EnterIcon />
+                </Button>
+              </Flex>
+            </form>
+          </Box>
+        </Container>
+      </Container>
       <GameOverModal
         status={lifes < 1 ? "fail" : "success"}
         isOpen={isOpen}

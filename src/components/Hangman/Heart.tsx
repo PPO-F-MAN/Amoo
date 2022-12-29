@@ -12,7 +12,7 @@ export const Heart = () => {
     <Flex justifyContent="center" alignItems="center">
       <Contianer>
         {Array.from(new Array(lifes), () => "").map((key: string, index: number) => {
-          return <Piece border={Primary[400]} key={`${key}-${index}`} />;
+          return <Piece border={Primary[300]} key={`${key}-${index}`} />;
         })}
       </Contianer>
     </Flex>
@@ -37,79 +37,86 @@ const Piece = styled.span`
   border-left: 35px solid transparent;
   border-right: 35px solid transparent;
 
-  &:nth-of-type(2n) {
-    transform: rotate(-30deg);
-  }
-
-  &:nth-of-type(2n-1) {
-    transform: rotate(30deg);
-  }
-
   &:nth-of-type(14) {
-    top: 0;
-    left: -114px;
-  }
-
-  &:nth-of-type(13) {
-    top: 0;
-    left: -82px;
-  }
-
-  &:nth-of-type(12) {
-    top: 0px;
-    left: 14px;
-  }
-
-  &:nth-of-type(11) {
-    top: 0;
-    left: 46px;
-  }
-
-  &:nth-of-type(8) {
-    top: 36px;
-    left: -50px;
-  }
-
-  &:nth-of-type(7) {
+    transform: rotate(30deg);
     top: 36px;
     left: -146px;
   }
 
-  &:nth-of-type(10) {
-    top: 36px;
-    left: 78px;
+  &:nth-of-type(13) {
+    transform: rotate(-30deg);
+    top: 0;
+    left: -114px;
   }
 
-  &:nth-of-type(9) {
-    top: 36px;
-    left: -18px;
-  }
-
-  &:nth-of-type(6) {
+  &:nth-of-type(12) {
+    transform: rotate(-30deg);
     top: 72px;
     left: -114px;
   }
 
-  &:nth-of-type(5) {
+  &:nth-of-type(11) {
+    transform: rotate(30deg);
+    top: 0;
+    left: -82px;
+  }
+
+  &:nth-of-type(10) {
+    transform: rotate(30deg);
     top: 72px;
     left: -82px;
   }
 
-  &:nth-of-type(4) {
-    top: 72px;
+  &:nth-of-type(9) {
+    transform: rotate(-30deg);
+    top: 36px;
+    left: -50px;
+  }
+
+  &:nth-of-type(8) {
+    transform: rotate(-30deg);
+    top: 0px;
     left: 14px;
   }
 
-  &:nth-of-type(3) {
+  &:nth-of-type(7) {
+    transform: rotate(-30deg);
+    top: 36px;
+    left: 78px;
+  }
+
+  &:nth-of-type(6) {
+    transform: rotate(30deg);
+    top: 0;
+    left: 46px;
+  }
+
+  &:nth-of-type(5) {
+    transform: rotate(30deg);
+    top: 36px;
+    left: -18px;
+  }
+
+  &:nth-of-type(4) {
+    transform: rotate(30deg);
     top: 72px;
     left: 46px;
   }
 
+  &:nth-of-type(3) {
+    transform: rotate(-30deg);
+    top: 72px;
+    left: 14px;
+  }
+
   &:nth-of-type(2) {
+    transform: rotate(-30deg);
     top: 108px;
     left: -50px;
   }
+
   &:nth-of-type(1) {
+    transform: rotate(30deg);
     top: 108px;
     left: -18px;
   }
