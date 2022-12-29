@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 import { GameOverModal } from "../../components/common";
-import { LENGTH_OF_WORD, LIFES } from "../../constants";
+import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
 import { getNewWord } from "../../utils";
 
 const Game1 = () => {
@@ -21,6 +21,7 @@ const Game1 = () => {
       getNewWord().then((word: string) => {
         setAnswer(word);
         setUserAnswer(Array.from(new Array(LENGTH_OF_WORD), () => ""));
+        console.log(word);
       });
     } catch (error) {
       console.log(error);
@@ -32,7 +33,7 @@ const Game1 = () => {
   }, []);
 
   useEffect(() => {
-    if (userAnswer.length === LENGTH_OF_WORD) {
+    if (userAnswer.join("").length === LENGTH_OF_WORD) {
       onOpen();
     }
   }, [userAnswer.join("")]);
@@ -55,8 +56,14 @@ const Game1 = () => {
 
   const submitAnswer = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    resetInput();
 
     if (value.length === 1 && answer.includes(value)) {
+      if (userAnswer.includes(value)) {
+        toast(TOAST_SUBMITTED);
+
+        return;
+      }
       const updateAnswer = userAnswer;
       answer.split("").forEach((alphabet: string, index: number) => {
         if (alphabet === value) {
@@ -64,28 +71,24 @@ const Game1 = () => {
         }
       });
       setUserAnswer(updateAnswer);
-      resetInput();
+
       return;
     }
 
     if (value === answer) {
-      resetInput();
       onOpen();
       return;
     }
 
-    toast({
-      title: "오답입니다!",
-      status: "warning",
-      duration: 3000,
-      isClosable: true,
-    });
-
+    toast(TOAST_WRONG);
     decreaseLife();
-    resetInput();
   };
 
-  const handleRestart = () => {};
+  const handleRestart = () => {
+    resetWord();
+    setLifes(LIFES);
+    onClose();
+  };
 
   return (
     <Container centerContent>
@@ -134,7 +137,7 @@ const Game1 = () => {
       <GameOverModal
         status={lifes < 1 ? "fail" : "success"}
         isOpen={isOpen}
-        onClose={onClose}
+        onClose={handleRestart}
         handleRestart={handleRestart}
       />
     </Container>
