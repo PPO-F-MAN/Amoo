@@ -15,11 +15,11 @@ export default defineConfig({
   server: {
     host: true,
     proxy: {
-      "/api": {
+      "/hangman": {
         target: "https://random-word-api.herokuapp.com",
         changeOrigin: true,
         secure: false,
-        rewrite: (path) => path.replace(/^\/api/, ""),
+        rewrite: (path) => path.replace(/^\/hangman/, ""),
       },
     },
     watch: {
