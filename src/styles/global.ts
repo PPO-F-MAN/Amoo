@@ -15,7 +15,16 @@ export const theme = extendTheme({
     },
   },
   styles: {
-    global: {},
+    global: {
+      html: {
+        WebkitTouchCallout: "none",
+        WebkitUserSelect: "none",
+        KhtmlUserSelect: "none",
+        MozUserSelect: "none",
+        MsUserSelect: "none",
+        userSelect: "none",
+      },
+    },
   },
   fonts: {
     heading:
