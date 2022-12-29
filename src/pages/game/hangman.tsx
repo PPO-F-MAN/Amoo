@@ -1,36 +1,22 @@
 import { Box, Button, Container, Flex, FormControl, Input, useDisclosure } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
+import { useAtom } from "jotai";
 import type { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
+import { answerAtom, resetGameAtom, updateUserAnswerAtom } from "../../atoms/hangman";
 import { GameOverModal } from "../../components/common";
 import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
-import { getNewWord } from "../../utils";
 
 const Hangman = () => {
   const toast = useToast();
+  const [answer] = useAtom(answerAtom);
+  const [, restartGame] = useAtom(resetGameAtom);
   const [value, setValue] = useState<string>("");
-  const [answer, setAnswer] = useState<string>("");
-  const [userAnswer, setUserAnswer] = useState<string[]>([]);
+  const [userAnswer, updateUserAnswer] = useAtom(updateUserAnswerAtom);
   const [lifes, setLifes] = useState<number>(LIFES);
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const resetWord = () => {
-    try {
-      getNewWord().then((word: string) => {
-        setAnswer(word);
-        setUserAnswer(Array.from(new Array(LENGTH_OF_WORD), () => ""));
-        console.log(word);
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    resetWord();
-  }, []);
 
   useEffect(() => {
     if (userAnswer.join("").length === LENGTH_OF_WORD) {
@@ -63,13 +49,11 @@ const Hangman = () => {
         toast(TOAST_SUBMITTED);
         return;
       }
-      const updateAnswer = userAnswer;
       answer.split("").forEach((alphabet: string, index: number) => {
         if (alphabet === value) {
-          updateAnswer[index] = alphabet;
+          updateUserAnswer({ index, value: alphabet });
         }
       });
-      setUserAnswer(updateAnswer);
       return;
     }
 
@@ -83,7 +67,7 @@ const Hangman = () => {
   };
 
   const handleRestart = () => {
-    resetWord();
+    restartGame();
     setLifes(LIFES);
     onClose();
   };
