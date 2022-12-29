@@ -8,7 +8,7 @@ import { GameOverModal } from "../../components/common";
 import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
 import { getNewWord } from "../../utils";
 
-const Game1 = () => {
+const Hangman = () => {
   const toast = useToast();
   const [value, setValue] = useState<string>("");
   const [answer, setAnswer] = useState<string>("");
@@ -61,7 +61,6 @@ const Game1 = () => {
     if (value.length === 1 && answer.includes(value)) {
       if (userAnswer.includes(value)) {
         toast(TOAST_SUBMITTED);
-
         return;
       }
       const updateAnswer = userAnswer;
@@ -71,7 +70,6 @@ const Game1 = () => {
         }
       });
       setUserAnswer(updateAnswer);
-
       return;
     }
 
@@ -144,4 +142,4 @@ const Game1 = () => {
   );
 };
 
-export default Game1;
+export default Hangman;
