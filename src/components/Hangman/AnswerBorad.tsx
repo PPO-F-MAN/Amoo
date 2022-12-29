@@ -10,11 +10,13 @@ export const AnswerBoard = () => {
     <Flex justify={"space-around"}>
       {userAnswer.map((alphabet: string, index: number) => (
         <Box
-          marginTop={"18px"}
-          p="2"
-          minW={"30px"}
-          borderBottom="1px"
-          borderBottomColor="primary.400"
+          marginTop={"30px"}
+          h={"30px"}
+          textAlign="center"
+          minW={["10%", "10%", "100px"]}
+          color="white"
+          borderBottom={["1px", "2px", "4px"]}
+          borderBottomColor="white"
           key={`${alphabet}-${index}`}
         >
           {alphabet || ""}
