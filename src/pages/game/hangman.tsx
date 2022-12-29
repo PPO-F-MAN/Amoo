@@ -22,10 +22,7 @@ const Hangman = () => {
     <Container centerContent>
       <h1>Game 1</h1>
       <Flex minH={"70vh"} direction={"column"} justifyContent={"space-between"}>
-        <div>
-          <h2>결과 모니터</h2>
-          <Heart />
-        </div>
+        <Heart />
         <AnswerBoard />
         <InputForm onOpen={onOpen} />
       </Flex>
