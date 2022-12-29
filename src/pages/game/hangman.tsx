@@ -5,7 +5,7 @@ import type { ChangeEvent } from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-import { answerAtom, resetGameAtom, updateUserAnswerAtom } from "../../atoms/hangman";
+import { answerAtom, resetGameAtom, updateUserAnswerAtom, userLifeAtom } from "../../atoms/hangman";
 import { GameOverModal } from "../../components/common";
 import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
 
@@ -13,9 +13,9 @@ const Hangman = () => {
   const toast = useToast();
   const [answer] = useAtom(answerAtom);
   const [, restartGame] = useAtom(resetGameAtom);
+  const [lifes, setLifes] = useAtom(userLifeAtom);
   const [value, setValue] = useState<string>("");
   const [userAnswer, updateUserAnswer] = useAtom(updateUserAnswerAtom);
-  const [lifes, setLifes] = useState<number>(LIFES);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   useEffect(() => {

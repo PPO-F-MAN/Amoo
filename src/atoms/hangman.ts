@@ -13,6 +13,11 @@ answerAtom.onMount = (set) => {
   })();
 };
 
+export const userLifeAtom = atom<number, number>(
+  (get) => get(lifesAtom),
+  (get, set, update) => set(lifesAtom, update),
+);
+
 export const updateUserAnswerAtom = atom<string[], { index: number; value: string }>(
   (get) => get(userAnswerAtom),
   (get, set, update) => {
