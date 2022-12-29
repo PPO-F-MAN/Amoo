@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import styled from "@emotion/styled";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue } from "jotai";
 
 import { lifesAtom } from "../../atoms/hangman";
@@ -13,16 +14,30 @@ export const Heart = () => {
   return (
     <Flex justifyContent="center" alignItems="center">
       <Box mt="50px" pos="relative" display="inline-block" w="0" h="200px">
-        {Array.from(new Array(lifes), () => "").map((key: string, index: number) => {
-          const bgColor = (Math.trunc((LIFES - lifes) / 2) + 1) * 100;
-          return <Piece bgColor={bgColor as PrimaryColorType} key={`${key}-${index}`} />;
-        })}
+        <AnimatePresence>
+          {Array.from(new Array(lifes), () => "").map((key: string, index: number) => {
+            const bgColor = (Math.trunc((LIFES - lifes) / 2) + 1) * 100;
+            return (
+              <Piece
+                exit={{
+                  opacity: 0,
+                  transition: {
+                    duration: 1,
+                    type: "tween",
+                  },
+                }}
+                bgColor={bgColor as PrimaryColorType}
+                key={`${key}-${index}`}
+              />
+            );
+          })}
+        </AnimatePresence>
       </Box>
     </Flex>
   );
 };
 
-const Piece = styled.span`
+const Piece = styled(motion.span)`
   position: absolute;
   display: inline-block;
   box-sizing: border-box;
