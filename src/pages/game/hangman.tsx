@@ -16,7 +16,7 @@ import { answerAtom, resetGameAtom, updateUserAnswerAtom, userLifeAtom } from ".
 import { GameOverModal } from "../../components/common";
 import { AnswerBoard } from "../../components/Hangman";
 import { Heart } from "../../components/Hangman/Heart";
-import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
+import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED } from "../../constants";
 
 const Hangman = () => {
   const toast = useToast();
@@ -63,7 +63,7 @@ const Hangman = () => {
       return;
     }
 
-    toast(TOAST_WRONG);
+    // toast(TOAST_WRONG);
     decreaseLife();
   };
 
