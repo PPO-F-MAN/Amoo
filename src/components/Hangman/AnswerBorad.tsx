@@ -5,6 +5,7 @@ import { userAnswerAtom } from "../../atoms/hangman";
 
 export const AnswerBoard = () => {
   const userAnswer = useAtomValue(userAnswerAtom);
+
   return (
     <Flex justify={"space-around"}>
       {userAnswer.map((alphabet: string, index: number) => (
