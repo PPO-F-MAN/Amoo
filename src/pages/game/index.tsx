@@ -74,7 +74,7 @@ const GameListPage = () => {
           1 to 50
         </Heading>
       </Link>
-      <Link style={{ zIndex: 1 }} to="/game/game1">
+      <Link style={{ zIndex: 1 }} to="/game/hangman">
         <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
           hangman
         </Heading>
