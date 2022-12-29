@@ -5,9 +5,8 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 import { GameOverModal } from "../../components/common";
+import { LENGTH_OF_WORD, LIFES } from "../../constants";
 import { getNewWord } from "../../utils";
-
-const LIFES: number = 10;
 
 const Game1 = () => {
   const toast = useToast();
@@ -17,16 +16,26 @@ const Game1 = () => {
   const [lifes, setLifes] = useState<number>(LIFES);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  useEffect(() => {
+  const resetWord = () => {
     try {
       getNewWord().then((word: string) => {
         setAnswer(word);
-        setUserAnswer(Array.from(new Array(word.length), () => ""));
+        setUserAnswer(Array.from(new Array(LENGTH_OF_WORD), () => ""));
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  useEffect(() => {
+    resetWord();
   }, []);
+
+  useEffect(() => {
+    if (userAnswer.length === LENGTH_OF_WORD) {
+      onOpen();
+    }
+  }, [userAnswer.join("")]);
 
   const handleAnswer = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value);
@@ -34,6 +43,10 @@ const Game1 = () => {
 
   const decreaseLife = () => {
     setLifes(lifes - 1);
+
+    if (lifes <= 1) {
+      onOpen();
+    }
   };
 
   const resetInput = () => {
@@ -55,8 +68,7 @@ const Game1 = () => {
       return;
     }
 
-    if (value.length > 1 && value === answer) {
-      // 정답 처리
+    if (value === answer) {
       resetInput();
       onOpen();
       return;
@@ -120,7 +132,7 @@ const Game1 = () => {
         </form>
       </Flex>
       <GameOverModal
-        status="success"
+        status={lifes < 1 ? "fail" : "success"}
         isOpen={isOpen}
         onClose={onClose}
         handleRestart={handleRestart}
