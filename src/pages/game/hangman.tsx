@@ -41,6 +41,8 @@ const Hangman = () => {
   };
 
   const submitAnswer = (event: React.FormEvent<HTMLFormElement>) => {
+    // 테스트용 콘솔
+    console.log(answer);
     event.preventDefault();
     resetInput();
 
