@@ -18,7 +18,7 @@ const HangHeart = () => {
       {isMounted && (
         <motion.div
           style={{
-            position: "absolute",
+            position: "fixed",
             left: "20px",
             top: "-95px",
           }}
