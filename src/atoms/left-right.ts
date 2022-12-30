@@ -14,6 +14,19 @@ const addArrow = (): Arrow => {
 
 export const timeAtom = atom<number>(100);
 
+export const positionTopAtom = atom<number>((get) => {
+  // timeAtom 100 -> positionTopAtom 50
+  // timeAtom 99 -> positionTopAtom 50.2
+  // timeAtom 98 -> positionTopAtom 50.4
+  // timeAtom 97 -> positionTopAtom 50.6
+  // ...
+  // timeAtom 50 -> positionTopAtom 70
+
+  const time = get(timeAtom);
+  const positionTop = 70 + (100 - time) * 0.1;
+  return positionTop;
+});
+
 export const scoreAtom = atom<number>(0);
 
 export const comboAtom = atom<number>(0);
