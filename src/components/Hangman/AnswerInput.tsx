@@ -38,14 +38,10 @@ export const AnswerInput = ({ onOpen }: AnswerInputProps) => {
     if (value.length === 1 && answer.includes(value)) {
       if (userAnswer.includes(value)) {
         toast(TOAST_SUBMITTED);
-
         return;
       }
-      answer.split("").forEach((alphabet: string, index: number) => {
-        if (alphabet === value) {
-          updateUserAnswer({ index, value: alphabet });
-        }
-      });
+
+      updateUserAnswer(value);
       if (userAnswer.join("").length === LENGTH_OF_WORD) onOpen();
       return;
     }
