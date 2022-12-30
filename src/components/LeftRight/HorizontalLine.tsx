@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import { memo } from "react";
 
 import { positionTopAtom } from "../../atoms/left-right";
 import { LAYER, Primary } from "../../constants";
@@ -90,4 +91,4 @@ const HorizontalLine = () => {
   );
 };
 
-export default HorizontalLine;
+export default memo(HorizontalLine);
