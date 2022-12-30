@@ -75,7 +75,7 @@ const LeftRightGame = () => {
                 exit={{ opacity: 0, translateX: direction === "left" ? -100 : 100 }}
                 transition={{ type: "spring", stiffness: 500, damping: 30 }}
               >
-                <Arrow direction={direction} isLast={index === ARROW_LENGTH - 1} />
+                <Arrow direction={direction} index={index} isLast={index === ARROW_LENGTH - 1} />
               </motion.div>
             ))}
           </AnimatePresence>
