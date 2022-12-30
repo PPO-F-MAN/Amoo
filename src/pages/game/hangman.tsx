@@ -11,7 +11,7 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 
 import EnterIcon from "../../assets/hangman/enter.svg";
 import { answerAtom, resetGameAtom, updateUserAnswerAtom, userLifeAtom } from "../../atoms/hangman";
@@ -81,7 +81,7 @@ const Hangman = () => {
   return (
     <Box
       bgColor="primary.900"
-      minH={"100vh"}
+      minH={"90vh"}
       display="flex"
       flexDirection={"column"}
       justifyContent={"center"}
@@ -115,8 +115,8 @@ const Hangman = () => {
                   colorScheme="primary"
                   type="text"
                   value={value}
-                  onChange={(e) => setValue(e.target.value)}
-                  pattern="[a-z]+$"
+                  onChange={(e) => setValue(e.target.value.toLocaleLowerCase())}
+                  pattern="[a-zA_Z]+$"
                 />
               </FormControl>
               <Button
