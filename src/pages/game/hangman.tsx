@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Container, useDisclosure, VisuallyHidden } from "@chakra-ui/react";
-import { useAtom } from "jotai";
+import { useAtom, useAtomValue } from "jotai";
 
 import { answerAtom, resetGameAtom, userLifeAtom } from "../../atoms/hangman";
 import { GameOverModal } from "../../components/common";
@@ -11,7 +11,7 @@ import { LIFES } from "../../constants";
 const Hangman = () => {
   const [, restartGame] = useAtom(resetGameAtom);
   const [lifes, setLifes] = useAtom(userLifeAtom);
-  const [answer] = useAtom(answerAtom);
+  const answer = useAtomValue(answerAtom);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleRestart = () => {
