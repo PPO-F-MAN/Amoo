@@ -1,24 +1,23 @@
 import { useAtomValue } from "jotai";
 
-import { positionTopAtom, timeAtom } from "../../atoms/left-right";
+import { positionTopAtom } from "../../atoms/left-right";
 import { LAYER, Primary } from "../../constants";
 import { TOP_TRANSITION } from "../../constants/left-right";
 
 const HorizontalLine = () => {
   const top = useAtomValue(positionTopAtom);
-  const time = useAtomValue(timeAtom);
 
   const getD = () => {
     return `M0 2.50024L961.5 ${Math.round((top * 10 - 700) * 3)}L1920 2.50008`;
   };
 
   const getStopColor = () => {
-    if (time > 90) return Primary[200];
-    if (time > 75) return Primary[300];
-    if (time > 60) return Primary[400];
-    if (time > 45) return Primary[500];
-    if (time > 30) return Primary[600];
-    if (time > 15) return Primary[700];
+    if (top === 70) return Primary[200];
+    if (top === 72) return Primary[300];
+    if (top === 74) return Primary[400];
+    if (top === 76) return Primary[500];
+    if (top === 78) return Primary[600];
+    if (top === 80) return Primary[700];
     return Primary[800];
   };
 
