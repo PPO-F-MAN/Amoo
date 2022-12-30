@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Flex,
   FormControl,
@@ -17,7 +18,7 @@ import { answerAtom, resetGameAtom, updateUserAnswerAtom, userLifeAtom } from ".
 import { GameOverModal } from "../../components/common";
 import { AnswerBoard } from "../../components/Hangman";
 import { Heart } from "../../components/Hangman/Heart";
-import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED } from "../../constants";
+import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
 
 const Hangman = () => {
   const toast = useToast();
@@ -41,8 +42,6 @@ const Hangman = () => {
   };
 
   const submitAnswer = (event: React.FormEvent<HTMLFormElement>) => {
-    // 테스트용 콘솔
-    console.log(answer);
     event.preventDefault();
     resetInput();
 
@@ -66,7 +65,7 @@ const Hangman = () => {
       return;
     }
 
-    // toast(TOAST_WRONG);
+    toast(TOAST_WRONG);
     decreaseLife();
   };
 
@@ -83,7 +82,13 @@ const Hangman = () => {
       </h1>
       <Container minH={"100vh"}>
         <Heart />
-        <AnswerBoard />
+        {answer ? (
+          <AnswerBoard />
+        ) : (
+          <Container centerContent>
+            <CircularProgress isIndeterminate color="primary.300" />
+          </Container>
+        )}
         <Container pos="fixed" left="0" right="0" bottom="20px">
           <Box border="1px" borderColor="white">
             <form onSubmit={(e) => submitAnswer(e)}>
