@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 import logo from "../../assets/logo.png";
 import HangHeart from "../../components/common/HangHeart";
+import { LAYER } from "../../constants";
 
 const GameListPage = () => {
   return (
@@ -31,17 +32,17 @@ const GameListPage = () => {
         }}
       />
       <HangHeart />
-      <Link style={{ zIndex: 1 }} to="/game/left-right">
+      <Link style={{ zIndex: LAYER.TOP }} to="/game/left-right">
         <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
           left & right
         </Heading>
       </Link>
-      <Link style={{ zIndex: 1 }} to="/game/game2">
+      <Link style={{ zIndex: LAYER.TOP }} to="/game/game2">
         <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
           1 to 50
         </Heading>
       </Link>
-      <Link style={{ zIndex: 1 }} to="/game/hangman">
+      <Link style={{ zIndex: LAYER.TOP }} to="/game/hangman">
         <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
           hangman
         </Heading>

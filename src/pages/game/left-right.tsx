@@ -1,25 +1,24 @@
-import { Center, Flex, Text } from "@chakra-ui/react";
+import { Center, Flex } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue, useSetAtom } from "jotai";
 import { useEffect } from "react";
 
-import {
-  arrowsAtom,
-  correctAtom,
-  lastArrowAtom,
-  scoreAtom,
-  wrongAtom,
-} from "../../atoms/left-right";
+import { arrowsAtom, correctAtom, lastArrowAtom, wrongAtom } from "../../atoms/left-right";
 import HangHeart from "../../components/common/HangHeart";
-import Arrow from "../../components/LeftRight/Arrow";
-import Combo from "../../components/LeftRight/Combo";
-import Timer from "../../components/LeftRight/Timer";
+import {
+  Arrow,
+  Combo,
+  HorizontalLine,
+  Score,
+  Timer,
+  VerticalLine,
+} from "../../components/LeftRight";
+import { LAYER } from "../../constants";
 import { ARROW_LENGTH } from "../../constants/left-right";
 
 const LeftRightGame = () => {
   const arrows = useAtomValue(arrowsAtom);
   const lastArrow = useAtomValue(lastArrowAtom);
-  const score = useAtomValue(scoreAtom);
 
   const correct = useSetAtom(correctAtom);
   const wrong = useSetAtom(wrongAtom);
@@ -53,13 +52,15 @@ const LeftRightGame = () => {
   return (
     <Center position="relative" backgroundColor="primary.900">
       <HangHeart />
-      <Center
+      <Flex
+        alignItems="center"
         position="relative"
         margin="auto"
         maxWidth="600px"
         width="100vw"
         height="100vh"
         flexDirection="column"
+        overflowX="hidden"
       >
         {/* <Box
           position="absolute"
@@ -89,8 +90,9 @@ const LeftRightGame = () => {
           justifyContent="space-between"
           alignItems="center"
           direction="column"
+          zIndex={LAYER.TOP}
           width="75%"
-          height="70%"
+          height="50%"
         >
           <AnimatePresence mode="popLayout">
             {arrows.map(({ direction, id }, index) => (
@@ -106,12 +108,13 @@ const LeftRightGame = () => {
               </motion.div>
             ))}
           </AnimatePresence>
+          <Score />
           <Combo />
         </Flex>
-
-        <Text>Score: {score}</Text>
+        <VerticalLine />
+        <HorizontalLine />
         <Timer />
-      </Center>
+      </Flex>
     </Center>
   );
 };

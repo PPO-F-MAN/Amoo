@@ -2,6 +2,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { LAYER } from "../../constants";
+
 const HangHeart = () => {
   const navigate = useNavigate();
   const [isMounted, setIsMounted] = useState<boolean>(true);
@@ -21,6 +23,7 @@ const HangHeart = () => {
             position: "fixed",
             left: "20px",
             top: "-95px",
+            zIndex: LAYER.TOP,
           }}
           whileHover={{
             cursor: "pointer",

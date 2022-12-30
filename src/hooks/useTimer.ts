@@ -36,7 +36,7 @@ const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
   }, [ms, setTime]);
 
   useEffect(() => {
-    if (time === 0) {
+    if (time <= 0) {
       clearInterval(timerInterval.current);
       // alert("Game Over");
     }

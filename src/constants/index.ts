@@ -19,3 +19,8 @@ export const Primary = {
   800: "#03045E",
   900: "#050505",
 };
+
+export const LAYER = {
+  BACKGROUND: 0,
+  TOP: 100,
+};
