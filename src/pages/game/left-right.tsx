@@ -9,6 +9,7 @@ import {
   Arrow,
   Combo,
   HorizontalLine,
+  MobilePad,
   Score,
   Timer,
   VerticalLine,
@@ -41,14 +42,6 @@ const LeftRightGame = () => {
     return () => window.removeEventListener("keydown", keyDownHandler);
   }, [arrows, correct, lastArrow.direction, wrong]);
 
-  // function handleTouchPadClick(direction: "left" | "right") {
-  //   if (lastArrow.direction === direction) {
-  //     correct();
-  //   } else {
-  //     wrong();
-  //   }
-  // }
-
   return (
     <Center position="relative" backgroundColor="primary.900">
       <HangHeart />
@@ -62,29 +55,7 @@ const LeftRightGame = () => {
         flexDirection="column"
         overflowX="hidden"
       >
-        {/* <Box
-          position="absolute"
-          left={0}
-          bottom={0}
-          width="40%"
-          height="50%"
-          backgroundColor="blackAlpha.100"
-          onClick={() => handleTouchPadClick("left")}
-        >
-          왼쪽
-        </Box>
-        <Box
-          position="absolute"
-          right={0}
-          bottom={0}
-          width="40%"
-          height="50%"
-          backgroundColor="blackAlpha.100"
-          onClick={() => handleTouchPadClick("right")}
-        >
-          오른쪽
-        </Box> */}
-
+        <MobilePad />
         <Flex
           position="relative"
           justifyContent="space-between"
