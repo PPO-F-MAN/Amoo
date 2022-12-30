@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useAtomValue } from "jotai";
 
 import { arrowsAtom } from "../../atoms/left-right";
@@ -60,20 +60,19 @@ const Arrows = () => {
   const arrows = useAtomValue(arrowsAtom);
 
   return (
-    <AnimatePresence mode="popLayout">
+    <>
       {arrows.map(({ direction, id }, index) => (
         <motion.div
           key={id}
           layout
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          exit={{ opacity: 0, translateX: direction === "left" ? -100 : 100 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
         >
           <Arrow direction={direction} index={index} isLast={index === ARROW_LENGTH - 1} />
         </motion.div>
       ))}
-    </AnimatePresence>
+    </>
   );
 };
 
