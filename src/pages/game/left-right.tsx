@@ -15,6 +15,7 @@ import {
   Arrow,
   Combo,
   HorizontalLine,
+  MaxCombo,
   MobilePad,
   Score,
   Timer,
@@ -95,6 +96,7 @@ const LeftRightGame = () => {
           </AnimatePresence>
           <Score />
           <Combo />
+          <MaxCombo />
         </motion.div>
         <VerticalLine />
         <HorizontalLine />
