@@ -18,12 +18,17 @@ export const userLifeAtom = atom<number, number>(
   (get, set, update) => set(lifesAtom, update),
 );
 
-export const updateUserAnswerAtom = atom<string[], { index: number; value: string }>(
+export const updateUserAnswerAtom = atom<string[], string>(
   (get) => get(userAnswerAtom),
   (get, set, update) => {
-    const { index, value } = update;
     const updatedAnswer = get(userAnswerAtom);
-    updatedAnswer[index] = value;
+    get(answerAtom)
+      .split("")
+      .forEach((alphabet: string, index: number) => {
+        if (alphabet === update) {
+          updatedAnswer[index] = update;
+        }
+      });
     set(userAnswerAtom, updatedAnswer);
   },
 );
