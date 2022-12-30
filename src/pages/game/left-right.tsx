@@ -1,7 +1,7 @@
 import { Center, Flex } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue, useSetAtom } from "jotai";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { arrowsAtom, correctAtom, lastArrowAtom, wrongAtom } from "../../atoms/left-right";
 import HangHeart from "../../components/common/HangHeart";
@@ -24,6 +24,8 @@ const LeftRightGame = () => {
   const correct = useSetAtom(correctAtom);
   const wrong = useSetAtom(wrongAtom);
 
+  const [isWrong, setIsDelay] = useState(false);
+
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
       if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
@@ -35,6 +37,8 @@ const LeftRightGame = () => {
         correct();
       } else {
         wrong();
+        setIsDelay(true);
+        setTimeout(() => setIsDelay(false), 1000);
       }
     };
 
@@ -56,14 +60,21 @@ const LeftRightGame = () => {
         overflowX="hidden"
       >
         <MobilePad />
-        <Flex
-          position="relative"
-          justifyContent="space-between"
-          alignItems="center"
-          direction="column"
-          zIndex={LAYER.TOP}
-          width="75%"
-          height="50%"
+        <motion.div
+          style={{
+            position: "relative",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
+            zIndex: LAYER.TOP,
+            width: "75%",
+            height: "50%",
+          }}
+          animate={{
+            translateX: isWrong ? [-5, 5, -5, 5, 0] : 0,
+          }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
         >
           <AnimatePresence mode="popLayout">
             {arrows.map(({ direction, id }, index) => (
@@ -81,7 +92,7 @@ const LeftRightGame = () => {
           </AnimatePresence>
           <Score />
           <Combo />
-        </Flex>
+        </motion.div>
         <VerticalLine />
         <HorizontalLine />
         <Timer />
