@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
+import AnimatedNumbers from "react-animated-numbers";
 
 import { scoreAtom } from "../../atoms/left-right";
 
@@ -17,9 +18,16 @@ const Score = () => {
       <Text color="white" lineHeight="0.9" fontSize="20px" fontWeight="bold">
         SCORE
       </Text>
-      <Text color="white" lineHeight="0.9" fontSize="30px" fontWeight="bold">
-        {score}
-      </Text>
+
+      <AnimatedNumbers
+        fontStyle={{
+          color: "white",
+          lineHeight: "0.9",
+          fontSize: "40px",
+          fontWeight: "bold",
+        }}
+        animateToNumber={score}
+      />
     </Flex>
   );
 };

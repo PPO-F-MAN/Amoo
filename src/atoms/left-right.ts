@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 import { nanoid } from "nanoid";
 
-import { ARROW_LENGTH } from "../constants/left-right";
+import { ARROW_LENGTH, DELAY } from "../constants/left-right";
 
 interface Arrow {
   id: string;
@@ -27,6 +27,9 @@ export const positionTopAtom = atom<number>((get) => {
   return positionTop;
 });
 
+export const delayAtom = atom<boolean>(false);
+export const shakeAtom = atom<boolean>(false);
+
 export const scoreAtom = atom<number>(0);
 
 export const comboAtom = atom<number>(0);
@@ -36,15 +39,29 @@ export const arrowsAtom = atom<Arrow[]>([...Array(ARROW_LENGTH)].map(() => addAr
 export const lastArrowAtom = atom<Arrow>((get) => get(arrowsAtom)[ARROW_LENGTH - 1]);
 
 export const correctAtom = atom(null, (get, set) => {
+  if (get(delayAtom)) return;
+
   set(scoreAtom, get(scoreAtom) + 1);
   set(comboAtom, get(comboAtom) + 1);
   set(timeAtom, (prevTime) => prevTime + 10);
   set(arrowsAtom, [addArrow(), ...get(arrowsAtom).slice(0, ARROW_LENGTH - 1)]);
+  set(delayAtom, true);
+  setTimeout(() => {
+    set(delayAtom, false);
+  }, DELAY);
 });
 
-export const wrongAtom = atom(null, (_, set) => {
+export const wrongAtom = atom(null, (get, set) => {
+  if (get(delayAtom)) return;
+
   set(comboAtom, 0);
   set(timeAtom, (prevTime) => prevTime - 10);
+  set(delayAtom, true);
+  set(shakeAtom, true);
+  setTimeout(() => {
+    set(delayAtom, false);
+    set(shakeAtom, false);
+  }, DELAY);
 });
 
 export const resetAtom = atom(null, (_, set) => {
