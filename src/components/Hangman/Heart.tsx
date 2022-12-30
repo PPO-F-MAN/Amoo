@@ -7,7 +7,7 @@ import { nanoid } from "nanoid";
 import { lifesAtom } from "../../atoms/hangman";
 import { LIFES, Primary } from "../../constants";
 
-export type PrimaryColorType = keyof typeof Primary;
+type PrimaryColorType = keyof typeof Primary;
 
 export const Heart = () => {
   const lifes = useAtomValue(lifesAtom);
@@ -38,6 +38,10 @@ export const Heart = () => {
   );
 };
 
+interface PieceBgColorProps {
+  bgColor: PrimaryColorType;
+}
+
 const Piece = styled(motion.span)`
   position: absolute;
   display: inline-block;
@@ -50,8 +54,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(14) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 700) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 700) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 34.5px;
     left: -138px;
@@ -59,8 +62,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(13) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 600) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 600) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 0;
     left: -108px;
@@ -68,8 +70,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(12) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 600) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 600) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 70px;
     left: -108px;
@@ -77,8 +78,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(11) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 500) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 500) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 0;
     left: -78px;
@@ -86,8 +86,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(10) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 500) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 500) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 70px;
     left: -78px;
@@ -95,8 +94,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(9) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 400) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 400) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 34.5px;
     left: -48px;
@@ -104,8 +102,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(8) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 400) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 400) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 0px;
     left: 12px;
@@ -113,8 +110,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(7) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 300) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 300) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 34.5px;
     left: 72px;
@@ -122,8 +118,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(6) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 200) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 200) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 0;
     left: 42px;
@@ -131,8 +126,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(5) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 200) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 200) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 34.5px;
     left: -18px;
@@ -140,8 +134,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(4) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 200) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 200) as PrimaryColorType]};
     transform: rotate(30deg);
     top: 70px;
     left: 42px;
@@ -149,8 +142,7 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(3) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 100) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 100) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 70px;
     left: 12px;
@@ -158,15 +150,14 @@ const Piece = styled(motion.span)`
 
   &:nth-of-type(2) {
     border-top: 61px solid
-      ${({ bgColor }: { bgColor: PrimaryColorType }) =>
-        Primary[(bgColor + 100) as PrimaryColorType]};
+      ${({ bgColor }: PieceBgColorProps) => Primary[(bgColor + 100) as PrimaryColorType]};
     transform: rotate(-30deg);
     top: 105px;
     left: -48px;
   }
 
   &:nth-of-type(1) {
-    border-top: 61px solid ${({ bgColor }: { bgColor: PrimaryColorType }) => Primary[bgColor]};
+    border-top: 61px solid ${({ bgColor }: PieceBgColorProps) => Primary[bgColor]};
     transform: rotate(30deg);
     top: 105px;
     left: -18px;
