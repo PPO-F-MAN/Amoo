@@ -1,4 +1,4 @@
-import { Center } from "@chakra-ui/react";
+import { Center, useMediaQuery } from "@chakra-ui/react";
 import { useAtomValue, useSetAtom } from "jotai";
 
 import { correctAtom, lastArrowAtom, scoreAtom, wrongAtom } from "../../atoms/left-right";
@@ -7,6 +7,7 @@ import { LAYER } from "../../constants";
 const MobilePad = () => {
   const lastArrow = useAtomValue(lastArrowAtom);
   const score = useAtomValue(scoreAtom);
+  const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   const correct = useSetAtom(correctAtom);
   const wrong = useSetAtom(wrongAtom);
@@ -18,6 +19,8 @@ const MobilePad = () => {
       wrong();
     }
   }
+
+  if (isLargerThan600) return null;
 
   return (
     <>
