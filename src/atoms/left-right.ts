@@ -1,6 +1,8 @@
 import { atom } from "jotai";
 import { nanoid } from "nanoid";
 
+import { ARROW_LENGTH } from "../constants/left-right";
+
 interface Arrow {
   id: string;
   direction: "left" | "right";
@@ -9,8 +11,6 @@ interface Arrow {
 const addArrow = (): Arrow => {
   return { direction: Math.random() > 0.5 ? "left" : "right", id: nanoid() };
 };
-
-export const ARROW_LENGTH = 5;
 
 export const timeAtom = atom<number>(100);
 

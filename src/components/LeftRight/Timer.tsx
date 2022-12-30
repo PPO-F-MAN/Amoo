@@ -1,4 +1,4 @@
-import { Progress, Text } from "@chakra-ui/react";
+import { Text } from "@chakra-ui/react";
 
 import useTimer from "../../hooks/useTimer";
 
@@ -10,8 +10,7 @@ const Timer = () => {
 
   return (
     <>
-      <Text>Timer: {time}</Text>
-      <Progress value={time} height="20px" width="80%" colorScheme="pink" />
+      <Text color="white">{time}</Text>
     </>
   );
 };
