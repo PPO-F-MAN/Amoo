@@ -1,5 +1,6 @@
 import { Box, Flex } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
+import { nanoid } from "nanoid";
 
 import { userAnswerAtom } from "../../atoms/hangman";
 
@@ -8,7 +9,7 @@ export const AnswerBoard = () => {
 
   return (
     <Flex justify={"space-around"}>
-      {userAnswer.map((alphabet: string, index: number) => (
+      {userAnswer.map((alphabet: string) => (
         <Box
           marginTop={"30px"}
           h={"30px"}
@@ -17,7 +18,7 @@ export const AnswerBoard = () => {
           color="white"
           borderBottom={["1px", "2px", "4px"]}
           borderBottomColor="white"
-          key={`${alphabet}-${index}`}
+          key={`${alphabet}-${nanoid()}`}
         >
           {alphabet || ""}
         </Box>

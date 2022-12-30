@@ -78,7 +78,7 @@ const Hangman = () => {
   return (
     <Box bgColor="primary.900">
       <h1>
-        <VisuallyHidden> Hangman</VisuallyHidden>
+        <VisuallyHidden>Hangman</VisuallyHidden>
       </h1>
       <Container minH={"100vh"}>
         <Heart />
