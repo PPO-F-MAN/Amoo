@@ -11,7 +11,7 @@ import {
   lastArrowAtom,
   scoreAtom,
   wrongAtom,
-} from "../../atoms/left-right-game";
+} from "../../atoms/left-right";
 import Timer from "../../components/LeftRight/Timer";
 
 const LeftRightGame = () => {

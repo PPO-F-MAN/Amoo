@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { useCallback, useEffect, useRef } from "react";
 
-import { timeAtom } from "../atoms/left-right-game";
+import { timeAtom } from "../atoms/left-right";
 
 interface useTimerProps {
   /**
