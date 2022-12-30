@@ -105,7 +105,7 @@ const Hangman = () => {
       </Container>
       <Container mt={"20px"}>
         <Box border="1px" borderColor="white">
-          <form onSubmit={(e) => submitAnswer(e)}>
+          <form onSubmit={(e) => submitAnswer(e)} onBlur={() => scrollTo(0, 0)}>
             <Flex margin="0" gap={2}>
               <FormControl>
                 <Input
@@ -123,6 +123,7 @@ const Hangman = () => {
                 bgColor="transparent"
                 type="submit"
                 colorScheme="primary"
+                _hover={{ background: "transparent" }}
                 _active={{ background: "transparent" }}
               >
                 <EnterIcon />
