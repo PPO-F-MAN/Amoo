@@ -2,7 +2,6 @@ import { Box, Flex } from "@chakra-ui/react";
 import styled from "@emotion/styled";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue } from "jotai";
-import { nanoid } from "nanoid";
 
 import { lifesAtom } from "../../atoms/hangman";
 import { LIFES, Primary } from "../../constants";
@@ -16,7 +15,7 @@ export const Heart = () => {
     <Flex justifyContent="center" alignItems="center">
       <Box mt="50px" pos="relative" display="inline-block" w="0" h="200px">
         <AnimatePresence>
-          {Array.from(new Array(lifes), () => "").map((key: string) => {
+          {Array.from(new Array(lifes), () => "").map((key: string, index: number) => {
             const bgColor = (Math.trunc((LIFES - lifes) / 2) + 1) * 100;
             return (
               <Piece
@@ -28,7 +27,7 @@ export const Heart = () => {
                   },
                 }}
                 bgColor={bgColor as PrimaryColorType}
-                key={`${key}-${nanoid()}`}
+                key={`${key}-${index}`}
               />
             );
           })}
