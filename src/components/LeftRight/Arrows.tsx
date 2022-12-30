@@ -64,7 +64,7 @@ const Arrows = () => {
       {arrows.map(({ direction, id }, index) => (
         <motion.div
           key={id}
-          // layout
+          layout
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
