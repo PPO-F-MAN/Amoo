@@ -11,11 +11,12 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import EnterIcon from "../../assets/hangman/enter.svg";
 import { answerAtom, resetGameAtom, updateUserAnswerAtom, userLifeAtom } from "../../atoms/hangman";
 import { GameOverModal } from "../../components/common";
+import HangHeart from "../../components/common/HangHeart";
 import { AnswerBoard } from "../../components/Hangman";
 import { Heart } from "../../components/Hangman/Heart";
 import { LENGTH_OF_WORD, LIFES, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
@@ -78,11 +79,21 @@ const Hangman = () => {
   };
 
   return (
-    <Box bgColor="primary.900">
+    <Box
+      bgColor="primary.900"
+      minH={"100vh"}
+      display="flex"
+      flexDirection={"column"}
+      justifyContent={"center"}
+      alignItems="center"
+    >
+      <nav>
+        <HangHeart />
+      </nav>
       <h1>
         <VisuallyHidden>Hangman</VisuallyHidden>
       </h1>
-      <Container minH={"100vh"}>
+      <Container>
         <Heart />
         {answer ? (
           <AnswerBoard />
@@ -91,34 +102,34 @@ const Hangman = () => {
             <CircularProgress isIndeterminate color="primary.300" />
           </Container>
         )}
-        <Container pos="fixed" left="0" right="0" bottom="20px">
-          <Box border="1px" borderColor="white">
-            <form onSubmit={(e) => submitAnswer(e)}>
-              <Flex margin="0" gap={2}>
-                <FormControl>
-                  <Input
-                    border="none"
-                    color="white"
-                    _focusVisible={{ outline: "none" }}
-                    colorScheme="primary"
-                    type="text"
-                    value={value}
-                    onChange={(e) => setValue(e.target.value)}
-                    pattern="[a-z]+$"
-                  />
-                </FormControl>
-                <Button
-                  bgColor="transparent"
-                  type="submit"
+      </Container>
+      <Container mt={"20px"}>
+        <Box border="1px" borderColor="white">
+          <form onSubmit={(e) => submitAnswer(e)}>
+            <Flex margin="0" gap={2}>
+              <FormControl>
+                <Input
+                  border="none"
+                  color="white"
+                  _focusVisible={{ outline: "none" }}
                   colorScheme="primary"
-                  _active={{ background: "transparent" }}
-                >
-                  <EnterIcon />
-                </Button>
-              </Flex>
-            </form>
-          </Box>
-        </Container>
+                  type="text"
+                  value={value}
+                  onChange={(e) => setValue(e.target.value)}
+                  pattern="[a-z]+$"
+                />
+              </FormControl>
+              <Button
+                bgColor="transparent"
+                type="submit"
+                colorScheme="primary"
+                _active={{ background: "transparent" }}
+              >
+                <EnterIcon />
+              </Button>
+            </Flex>
+          </form>
+        </Box>
       </Container>
       <GameOverModal
         status={lifes < 1 ? "fail" : "success"}
