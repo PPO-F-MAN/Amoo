@@ -45,6 +45,8 @@ const Hangman = () => {
     event.preventDefault();
     resetInput();
 
+    if (!answer) return;
+
     if (value.length === 1 && answer.includes(value)) {
       if (userAnswer.includes(value)) {
         toast(TOAST_SUBMITTED);
@@ -105,7 +107,12 @@ const Hangman = () => {
                     pattern="[a-z]+$"
                   />
                 </FormControl>
-                <Button bgColor="transparent" type="submit" colorScheme="primary">
+                <Button
+                  bgColor="transparent"
+                  type="submit"
+                  colorScheme="primary"
+                  _active={{ background: "transparent" }}
+                >
                   <EnterIcon />
                 </Button>
               </Flex>
