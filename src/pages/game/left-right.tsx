@@ -1,9 +1,15 @@
 import { Center, Flex } from "@chakra-ui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue, useSetAtom } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
-import { arrowsAtom, correctAtom, lastArrowAtom, wrongAtom } from "../../atoms/left-right";
+import {
+  arrowsAtom,
+  correctAtom,
+  lastArrowAtom,
+  shakeAtom,
+  wrongAtom,
+} from "../../atoms/left-right";
 import HangHeart from "../../components/common/HangHeart";
 import {
   Arrow,
@@ -20,11 +26,10 @@ import { ARROW_LENGTH } from "../../constants/left-right";
 const LeftRightGame = () => {
   const arrows = useAtomValue(arrowsAtom);
   const lastArrow = useAtomValue(lastArrowAtom);
+  const shake = useAtomValue(shakeAtom);
 
   const correct = useSetAtom(correctAtom);
   const wrong = useSetAtom(wrongAtom);
-
-  const [isWrong, setIsDelay] = useState(false);
 
   useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
@@ -37,8 +42,6 @@ const LeftRightGame = () => {
         correct();
       } else {
         wrong();
-        setIsDelay(true);
-        setTimeout(() => setIsDelay(false), 1000);
       }
     };
 
@@ -72,7 +75,7 @@ const LeftRightGame = () => {
             height: "50%",
           }}
           animate={{
-            translateX: isWrong ? [-5, 5, -5, 5, 0] : 0,
+            translateX: shake ? [-5, 5, -5, 5, 0] : 0,
           }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
         >
