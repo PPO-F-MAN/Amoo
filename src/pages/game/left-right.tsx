@@ -7,6 +7,7 @@ import {
   Combo,
   HorizontalLine,
   MaxCombo,
+  MaxScore,
   MobilePad,
   Score,
   Timer,
@@ -48,6 +49,7 @@ const LeftRightGame = () => {
           <Score />
           <Combo />
           <MaxCombo />
+          <MaxScore />
         </motion.div>
         <VerticalLine />
         <HorizontalLine />
