@@ -17,6 +17,8 @@ const getScore = ({ combo, score }: { combo: number; score: number }) => {
   return combo * 9 + score + 1;
 };
 
+export const gameStatusAtom = atom<"ready" | "playing" | "end">("ready");
+
 export const timeAtom = atom<number>(100);
 
 export const positionTopAtom = atom<number>(70);
@@ -79,6 +81,7 @@ export const resetAtom = atom(null, (_, set) => {
   set(scoreAtom, 0);
   set(comboAtom, 0);
   set(timeAtom, 100);
+  set(gameStatusAtom, "ready");
   set(
     arrowsAtom,
     [...Array(ARROW_LENGTH)].map(() => addArrow()),

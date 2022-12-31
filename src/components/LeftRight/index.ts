@@ -1,5 +1,6 @@
 export { default as Arrows } from "./Arrows";
 export { default as Combo } from "./Combo";
+export { default as GameOverOverlay } from "./GameOverOverlay";
 export { default as HorizontalLine } from "./HorizontalLine";
 export { default as MaxCombo } from "./MaxCombo";
 export { default as MaxScore } from "./MaxScore";

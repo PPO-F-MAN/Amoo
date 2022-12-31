@@ -24,4 +24,5 @@ export const LAYER = {
   BACKGROUND: 0,
   TOP: 100,
   ABSOLUTE: 1000,
+  MODAL: 9999,
 };

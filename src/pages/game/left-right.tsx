@@ -1,10 +1,13 @@
 import { Center, Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import { useAtomValue } from "jotai";
 
+import { gameStatusAtom } from "../../atoms/left-right";
 import HangHeart from "../../components/common/HangHeart";
 import {
   Arrows,
   Combo,
+  GameOverOverlay,
   HorizontalLine,
   MaxCombo,
   MaxScore,
@@ -14,14 +17,16 @@ import {
   VerticalLine,
 } from "../../components/LeftRight";
 import { LAYER } from "../../constants";
-import useLeftRightGame from "../../hooks/useLeftRightGame";
+import useLeftRightKeyBoard from "../../hooks/useLeftRightKeyBoard";
 
 const LeftRightGame = () => {
-  useLeftRightGame();
+  const gameStatus = useAtomValue(gameStatusAtom);
+  useLeftRightKeyBoard();
 
   return (
     <Center position="relative" backgroundColor="primary.900">
-      <HangHeart />
+      {gameStatus !== "playing" && <HangHeart />}
+      <GameOverOverlay visible={gameStatus === "end"} />
       <Flex
         alignItems="center"
         position="relative"
