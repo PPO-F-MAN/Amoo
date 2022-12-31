@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/react";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useAtomValue } from "jotai";
 import { memo } from "react";
 
