@@ -1,4 +1,4 @@
-import { Center, Flex, Text } from "@chakra-ui/react";
+import { Box, Center, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -16,7 +16,12 @@ const Home = () => {
       timeRef.current += 1;
       if (timeRef.current === 20) {
         clearInterval(intervalRef.current);
-        navigate("/game");
+        const random = Math.random();
+
+        // TODO: 게임이 늘어났을 때 이 부분을 수정해야 함
+        if (random < 0.3) navigate("/game/game2");
+        else if (random < 0.6) navigate("/game/hangman");
+        else navigate("/game/left-right");
       }
     }, 100);
   };
@@ -30,6 +35,10 @@ const Home = () => {
     }, 100);
   };
 
+  const handleClickHamberger = () => {
+    navigate("/game");
+  };
+
   return (
     <Center
       overflow="hidden"
@@ -38,6 +47,29 @@ const Home = () => {
       height="100vh"
       backgroundColor="primary.900"
     >
+      <Box
+        position="fixed"
+        right={0}
+        top={0}
+        margin="20px"
+        _hover={{ cursor: "pointer" }}
+        onClick={handleClickHamberger}
+      >
+        <svg
+          width="24"
+          height="18"
+          viewBox="0 0 24 18"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M1 1L23 1M1 9L23 9M1 17L23 17"
+            stroke="white"
+            strokeWidth="2"
+            strokeLinecap="round"
+          />
+        </svg>
+      </Box>
       <motion.div
         animate={{
           scale: isPressed ? 10 : 1,
