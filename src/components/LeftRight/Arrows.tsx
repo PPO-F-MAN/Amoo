@@ -76,7 +76,7 @@ const Arrows = () => {
           style={{
             willChange: "transform",
           }}
-          layout="position"
+          layout="preserve-aspect"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
