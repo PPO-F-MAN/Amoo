@@ -10,7 +10,7 @@ const MaxScore = () => {
   return (
     <Flex
       position="absolute"
-      bottom="65px"
+      bottom="62px"
       left={0}
       direction="column"
       justifyContent="center"
@@ -19,7 +19,7 @@ const MaxScore = () => {
       <Text color="whiteAlpha.400" lineHeight="1" fontSize="11.5px" fontWeight="bold">
         MAX-SCORE
       </Text>
-      <Text color="whiteAlpha.400" lineHeight="1" fontSize="16px" fontWeight="bold">
+      <Text color="whiteAlpha.400" lineHeight="1" fontSize="14px" fontWeight="bold">
         {maxScore}
       </Text>
     </Flex>
