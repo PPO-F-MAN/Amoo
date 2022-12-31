@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import { memo } from "react";
 
 import { positionTopAtom } from "../../atoms/left-right";
 import { HEIGHT_TRANSITION } from "../../constants/left-right";
@@ -26,4 +27,4 @@ const VerticalLine = () => {
   );
 };
 
-export default VerticalLine;
+export default memo(VerticalLine);
