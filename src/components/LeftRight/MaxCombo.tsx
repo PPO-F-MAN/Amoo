@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
+import { memo } from "react";
 
 import { maxComboAtom } from "../../atoms/left-right";
 
@@ -25,4 +26,4 @@ const MaxCombo = () => {
   );
 };
 
-export default MaxCombo;
+export default memo(MaxCombo);

@@ -1,8 +1,9 @@
 import { Flex } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useAtomValue } from "jotai";
+import { memo } from "react";
 
-import { arrowsAtom } from "../../atoms/left-right";
+import { arrowsAtom, shakeAtom } from "../../atoms/left-right";
 import { LAYER } from "../../constants";
 import { ARROW_LENGTH } from "../../constants/left-right";
 
@@ -14,25 +15,33 @@ interface ArrowProps {
 
 const Arrow = ({ isLast, direction, index }: ArrowProps) => {
   const opacity = (index / 10) * 2 + 0.1;
+  const shake = useAtomValue(shakeAtom);
 
   if (isLast) {
     return (
-      <Flex
-        justifyContent={direction === "left" ? "flex-start" : "flex-end"}
-        fontWeight="bold"
-        alignItems="center"
-        border="5px solid white"
-        color="white"
-        margin="10px"
-        opacity={1}
-        width={"70px"}
-        height={"70px"}
-        fontSize={"36px"}
-        backgroundColor="primary.900"
-        zIndex={LAYER.TOP}
+      <motion.div
+        animate={{
+          translateX: shake ? [-5, 5, -5, 5, 0] : 0,
+        }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
       >
-        {direction === "left" ? "←" : "→"}
-      </Flex>
+        <Flex
+          justifyContent={direction === "left" ? "flex-start" : "flex-end"}
+          fontWeight="bold"
+          alignItems="center"
+          border="5px solid white"
+          color="white"
+          margin="10px"
+          opacity={1}
+          width={"70px"}
+          height={"70px"}
+          fontSize={"36px"}
+          backgroundColor="primary.900"
+          zIndex={LAYER.TOP}
+        >
+          {direction === "left" ? "←" : "→"}
+        </Flex>
+      </motion.div>
     );
   }
 
@@ -76,4 +85,4 @@ const Arrows = () => {
   );
 };
 
-export default Arrows;
+export default memo(Arrows);

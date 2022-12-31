@@ -1,5 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { useAtomValue } from "jotai";
+import { memo } from "react";
 import AnimatedNumbers from "react-animated-numbers";
 
 import { scoreAtom } from "../../atoms/left-right";
@@ -32,4 +33,4 @@ const Score = () => {
   );
 };
 
-export default Score;
+export default memo(Score);
