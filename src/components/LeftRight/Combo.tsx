@@ -1,21 +1,20 @@
 import { Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useAtomValue } from "jotai";
-import { useEffect, useState } from "react";
 
 import { comboAtom } from "../../atoms/left-right";
 
 const Combo = () => {
   const combo = useAtomValue(comboAtom);
-  const [animate, setAnimate] = useState(false);
+  // const [animate, setAnimate] = useState(false);
 
-  useEffect(() => {
-    setAnimate(true);
-    const timeout = setTimeout(() => {
-      setAnimate(false);
-    }, 200);
-    return () => clearTimeout(timeout);
-  }, [combo]);
+  // useEffect(() => {
+  //   setAnimate(true);
+  //   const timeout = setTimeout(() => {
+  //     setAnimate(false);
+  //   }, 200);
+  //   return () => clearTimeout(timeout);
+  // }, [combo]);
 
   return (
     <Flex
@@ -30,6 +29,14 @@ const Combo = () => {
         COMBO
       </Text>
       <motion.div
+        style={{
+          color: "white",
+          lineHeight: "0.9",
+          fontSize: "40px",
+          fontWeight: "bold",
+        }}
+      >
+        {/* <motion.div
         initial={{ scale: 1 }}
         animate={{ scale: animate ? 2 : 1 }}
         style={{
@@ -38,7 +45,7 @@ const Combo = () => {
           fontSize: "40px",
           fontWeight: "bold",
         }}
-      >
+      > */}
         {combo}
       </motion.div>
     </Flex>
