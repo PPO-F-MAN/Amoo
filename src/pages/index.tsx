@@ -1,9 +1,7 @@
-import { Center, Flex, Img, Text } from "@chakra-ui/react";
+import { Center, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
-import logo from "../assets/logo.png";
 
 const Home = () => {
   const intervalRef = useRef<ReturnType<typeof setInterval>>();
@@ -16,7 +14,7 @@ const Home = () => {
     clearInterval(intervalRef.current);
     intervalRef.current = setInterval(() => {
       timeRef.current += 1;
-      if (timeRef.current === 30) {
+      if (timeRef.current === 20) {
         clearInterval(intervalRef.current);
         navigate("/game");
       }
@@ -42,31 +40,45 @@ const Home = () => {
     >
       <motion.div
         animate={{
-          scale: isPressed ? 5 : 1,
+          scale: isPressed ? 10 : 1,
           opacity: isPressed ? 0.1 : 1,
         }}
         transition={{
-          duration: 3,
+          duration: 2,
+          ease: "easeInOut",
         }}
       >
         <motion.div
-          initial={{ scale: 10, opacity: 0 }}
+          initial={{ scale: 10, opacity: 0.1 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.7, type: "spring" }}
         >
-          <Img
-            src={logo}
-            width="130px"
-            height="105px"
-            draggable={false}
-            _hover={{
-              cursor: "pointer",
-            }}
+          <svg
+            width="131"
+            height="105"
+            viewBox="0 0 131 105"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
             onTouchStart={handleMouseDown}
             onTouchEnd={handleMouseUp}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
-          />
+          >
+            <path d="M0 21L32.75 42L5.42724e-07 63L0 21Z" fill="#03045E" />
+            <path d="M32.75 0V42L0 21L32.75 0Z" fill="#023E8A" />
+            <path d="M32.75 42V84L5.42724e-07 63L32.75 42Z" fill="#023E8A" />
+            <path d="M32.75 0L65.5 21L32.75 42V0Z" fill="#0077B6" />
+            <path d="M32.75 42L65.5 63L32.75 84V42Z" fill="#0077B6" />
+            <path d="M65.5 21V63L32.75 42L65.5 21Z" fill="#0096C7" />
+            <path d="M98.25 0V42L65.5 21L98.25 0Z" fill="#0096C7" />
+            <path d="M131 21V63L98.25 42L131 21Z" fill="#48CAE4" />
+            <path d="M65.5 21L98.25 42L65.5 63V21Z" fill="#90E0EF" />
+            <path d="M98.25 0L131 21L98.25 42V0Z" fill="#90E0EF" />
+            <path d="M98.25 42L131 63L98.25 84V42Z" fill="#90E0EF" />
+            <path d="M98.25 42V84L65.5 63L98.25 42Z" fill="#ADE8F4" />
+            <path d="M65.5 63V105L32.75 84L65.5 63Z" fill="#ADE8F4" />
+            <path d="M65.5 63L98.25 84L65.5 105V63Z" fill="#CAF0F8" />
+          </svg>
         </motion.div>
       </motion.div>
       <Flex
