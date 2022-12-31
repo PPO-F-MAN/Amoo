@@ -74,9 +74,9 @@ const Arrows = () => {
         <motion.div
           key={id}
           style={{
-            willChange: "translateY",
+            willChange: "transform",
           }}
-          layout
+          layout="preserve-aspect"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ type: "spring", stiffness: 500, damping: 30 }}
