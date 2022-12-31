@@ -20,7 +20,7 @@ const MaxScore = () => {
         MAX-SCORE
       </Text>
       <Text color="whiteAlpha.400" lineHeight="1" fontSize="14px" fontWeight="bold">
-        {maxScore}
+        {maxScore.toLocaleString()}
       </Text>
     </Flex>
   );

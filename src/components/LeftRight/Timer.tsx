@@ -3,11 +3,11 @@ import { useAtomValue } from "jotai";
 
 import { positionTopAtom } from "../../atoms/left-right";
 import { TOP_TRANSITION } from "../../constants/left-right";
-import useTimer from "../../hooks/useTimer";
+import useLeftRightTimer from "../../hooks/useLeftRightTimer";
 
 const Timer = () => {
   const top = useAtomValue(positionTopAtom);
-  const { time } = useTimer({
+  const { time } = useLeftRightTimer({
     ms: 100,
     initialTime: 100,
   });

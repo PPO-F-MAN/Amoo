@@ -1,21 +1,35 @@
 import { Center, useMediaQuery } from "@chakra-ui/react";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 
-import { correctAtom, lastArrowAtom, scoreAtom, wrongAtom } from "../../atoms/left-right";
+import {
+  correctAtom,
+  gameStatusAtom,
+  lastArrowAtom,
+  scoreAtom,
+  wrongAtom,
+} from "../../atoms/left-right";
 import { LAYER } from "../../constants";
+
+const PAD_VISIbLE_STANDARD_SCORE = 50;
 
 const MobilePad = () => {
   const lastArrow = useAtomValue(lastArrowAtom);
   const score = useAtomValue(scoreAtom);
+  const [gameStatus, setGameStatus] = useAtom(gameStatusAtom);
+
   const [isLargerThan600] = useMediaQuery("(min-width: 600px)");
 
   const correct = useSetAtom(correctAtom);
   const wrong = useSetAtom(wrongAtom);
 
   function handleTouchPadClick(direction: "left" | "right") {
+    if (gameStatus === "end") return;
+
     if (lastArrow.direction === direction) {
+      if (gameStatus === "ready") setGameStatus("playing");
       correct();
     } else {
+      if (gameStatus === "ready") return;
       wrong();
     }
   }
@@ -34,7 +48,7 @@ const MobilePad = () => {
         color="whiteAlpha.800"
         backgroundColor="whiteAlpha.50"
         zIndex={LAYER.ABSOLUTE}
-        opacity={score > 5 ? 0 : 1}
+        opacity={score > PAD_VISIbLE_STANDARD_SCORE ? 0 : 1}
         onClick={() => handleTouchPadClick("left")}
       >
         왼쪽
@@ -50,7 +64,7 @@ const MobilePad = () => {
         color="whiteAlpha.800"
         backgroundColor="whiteAlpha.50"
         zIndex={LAYER.ABSOLUTE}
-        opacity={score > 5 ? 0 : 1}
+        opacity={score > PAD_VISIbLE_STANDARD_SCORE ? 0 : 1}
         onClick={() => handleTouchPadClick("right")}
       >
         오른쪽

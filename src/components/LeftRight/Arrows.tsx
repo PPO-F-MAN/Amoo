@@ -3,7 +3,7 @@ import { LayoutGroup, motion } from "framer-motion";
 import { useAtomValue } from "jotai";
 import { memo } from "react";
 
-import { arrowsAtom, shakeAtom } from "../../atoms/left-right";
+import { arrowsAtom, gameStatusAtom, shakeAtom } from "../../atoms/left-right";
 import { LAYER } from "../../constants";
 import { ARROW_LENGTH } from "../../constants/left-right";
 
@@ -16,14 +16,20 @@ interface ArrowProps {
 const Arrow = ({ isLast, direction, index }: ArrowProps) => {
   const opacity = (index / 10) * 2 + 0.1;
   const shake = useAtomValue(shakeAtom);
+  const gameStatus = useAtomValue(gameStatusAtom);
 
   if (isLast) {
     return (
       <motion.div
         animate={{
-          translateX: shake ? [-5, 5, -5, 5, 0] : 0,
+          translateX: gameStatus === "ready" ? [-5, 5, -5, 5, 0] : shake ? [-5, 5, -5, 5, 0] : 0,
         }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        transition={{
+          type: "spring",
+          stiffness: 500,
+          damping: 30,
+          repeat: (gameStatus === "ready" && Infinity) || 0,
+        }}
       >
         <Flex
           justifyContent={direction === "left" ? "flex-start" : "flex-end"}

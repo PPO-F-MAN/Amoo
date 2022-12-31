@@ -1,7 +1,7 @@
 import { useAtom, useSetAtom } from "jotai";
 import { useCallback, useEffect, useRef } from "react";
 
-import { positionTopAtom, timeAtom } from "../atoms/left-right";
+import { gameStatusAtom, positionTopAtom, timeAtom } from "../atoms/left-right";
 
 interface useTimerProps {
   /**
@@ -20,6 +20,8 @@ interface useTimerProps {
 const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
   const timerInterval = useRef<ReturnType<typeof setInterval>>();
   const [time, setTime] = useAtom(timeAtom);
+  const [gameStatus, setGameStatus] = useAtom(gameStatusAtom);
+
   const setTop = useSetAtom(positionTopAtom);
 
   const resetTime = useCallback(() => {
@@ -27,6 +29,8 @@ const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
   }, [initialTime, setTime]);
 
   useEffect(() => {
+    if (gameStatus === "end" || gameStatus === "ready") return;
+
     timerInterval.current = setInterval(() => {
       setTime((prevTime) => prevTime - 1);
     }, ms);
@@ -34,12 +38,12 @@ const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
     return () => {
       clearInterval(timerInterval.current);
     };
-  }, [ms, setTime]);
+  }, [ms, setTime, gameStatus]);
 
   useEffect(() => {
     if (time <= 0) {
       clearInterval(timerInterval.current);
-      // alert("Game Over");
+      setGameStatus("end");
     }
 
     if (time >= 100) {
@@ -57,7 +61,7 @@ const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
     }
 
     if (time > 100) resetTime();
-  }, [resetTime, setTop, time, timerInterval]);
+  }, [resetTime, setGameStatus, setTop, time, timerInterval]);
 
   return {
     time,
