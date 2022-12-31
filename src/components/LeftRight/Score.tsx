@@ -1,12 +1,22 @@
 import { Flex, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
 import { useAtomValue } from "jotai";
-import { memo } from "react";
+import { memo, useEffect, useState } from "react";
 
-// import AnimatedNumbers from "react-animated-numbers";
 import { scoreAtom } from "../../atoms/left-right";
 
 const Score = () => {
   const score = useAtomValue(scoreAtom);
+  const [animate, setAnimate] = useState(false);
+
+  useEffect(() => {
+    setAnimate(true);
+    const timeout = setTimeout(() => {
+      setAnimate(false);
+    }, 200);
+    return () => clearTimeout(timeout);
+  }, [score]);
+
   return (
     <Flex
       position="absolute"
@@ -19,19 +29,18 @@ const Score = () => {
       <Text color="white" lineHeight="0.9" fontSize="20px" fontWeight="bold">
         SCORE
       </Text>
-      <Text color="white" lineHeight="0.9" fontSize="20px" fontWeight="bold">
-        {score}
-      </Text>
-
-      {/* <AnimatedNumbers
-        fontStyle={{
+      <motion.div
+        initial={{ y: 0 }}
+        animate={{ y: animate ? -10 : 0 }}
+        style={{
           color: "white",
           lineHeight: "0.9",
           fontSize: "40px",
           fontWeight: "bold",
         }}
-        animateToNumber={score}
-      /> */}
+      >
+        {score}
+      </motion.div>
     </Flex>
   );
 };
