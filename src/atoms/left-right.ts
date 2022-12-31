@@ -13,6 +13,10 @@ const addArrow = (): Arrow => {
   return { direction: Math.random() > 0.5 ? "left" : "right", id: nanoid() };
 };
 
+const getScore = ({ combo, score }: { combo: number; score: number }) => {
+  return combo * 9 + score + 1;
+};
+
 export const timeAtom = atom<number>(100);
 
 export const positionTopAtom = atom<number>(70);
@@ -21,6 +25,7 @@ export const delayAtom = atom<boolean>(false);
 export const shakeAtom = atom<boolean>(false);
 
 export const scoreAtom = atom<number>(0);
+export const maxScoreAtom = atom<number>(Number(safeLocalStorage.get("maxScore")) || 0);
 
 export const comboAtom = atom<number>(0);
 export const maxComboAtom = atom<number>(Number(safeLocalStorage.get("maxCombo")) || 0);
@@ -33,6 +38,7 @@ export const correctAtom = atom(null, (get, set) => {
   if (get(delayAtom)) return;
 
   const maxCombo = get(maxComboAtom);
+  const maxScore = get(maxScoreAtom);
   const combo = get(comboAtom);
   const score = get(scoreAtom);
 
@@ -41,9 +47,14 @@ export const correctAtom = atom(null, (get, set) => {
     safeLocalStorage.set("maxCombo", (combo + 1).toString());
   }
 
-  set(scoreAtom, score + 1);
+  if (getScore({ combo: combo + 1, score }) > maxScore) {
+    set(maxScoreAtom, getScore({ combo: combo + 1, score }));
+    safeLocalStorage.set("maxScore", getScore({ combo: combo + 1, score }).toString());
+  }
+
+  set(scoreAtom, getScore({ combo: combo + 1, score }));
   set(comboAtom, combo + 1);
-  set(timeAtom, (prevTime) => prevTime + 10);
+  set(timeAtom, (prevTime) => prevTime + 3);
   set(arrowsAtom, [addArrow(), ...get(arrowsAtom).slice(0, ARROW_LENGTH - 1)]);
   set(delayAtom, true);
   setTimeout(() => {
