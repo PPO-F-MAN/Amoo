@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { useState } from "react";
+import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { LAYER } from "../../constants";
@@ -19,6 +19,7 @@ const HangHeart = () => {
     <AnimatePresence>
       {isMounted && (
         <motion.div
+          layout
           style={{
             position: "fixed",
             left: "20px",
@@ -64,4 +65,4 @@ const HangHeart = () => {
   );
 };
 
-export default HangHeart;
+export default memo(HangHeart);
