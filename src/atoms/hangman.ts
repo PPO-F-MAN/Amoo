@@ -21,7 +21,7 @@ export const userLifeAtom = atom<number, number>(
 export const updateUserAnswerAtom = atom<string[], string>(
   (get) => get(userAnswerAtom),
   (get, set, update) => {
-    const updatedAnswer = get(userAnswerAtom);
+    const updatedAnswer = [...get(userAnswerAtom)];
 
     get(answerAtom)
       .split("")
@@ -31,8 +31,6 @@ export const updateUserAnswerAtom = atom<string[], string>(
         }
       });
     set(userAnswerAtom, updatedAnswer);
-    // TODO: 임시방편 수정
-    set(lifesAtom, get(lifesAtom) + 1);
   },
 );
 
