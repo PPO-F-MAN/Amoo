@@ -8,7 +8,7 @@ import {
   stopwatchAtom,
 } from "../atoms/one-to-fifty";
 
-const useOneToFifty = (delay = 1) => {
+const useOneToFifty = (delay = 10) => {
   const stopwatchInterval = useRef<ReturnType<typeof setInterval>>();
   const setStopwatch = useSetAtom(stopwatchAtom);
   const startStopwatch = useSetAtom(startStopwatchAtom);
