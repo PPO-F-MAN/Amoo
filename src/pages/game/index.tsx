@@ -37,7 +37,7 @@ const GameListPage = () => {
           left & right
         </Heading>
       </Link>
-      <Link style={{ zIndex: LAYER.TOP }} to="/game/game2">
+      <Link style={{ zIndex: LAYER.TOP }} to="/game/one-to-fifty">
         <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
           1 to 50
         </Heading>
