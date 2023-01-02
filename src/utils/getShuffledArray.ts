@@ -1,4 +1,4 @@
-const getShuffledArray = (size: number) => {
+export const getShuffledArray = (size: number) => {
   const shuffledArray = Array.from({ length: size }, (_, i) => i + 1);
   for (let cur = 0; cur < shuffledArray.length; cur++) {
     let tmp = Math.floor(Math.random() * (cur + 1));
@@ -6,5 +6,3 @@ const getShuffledArray = (size: number) => {
   }
   return shuffledArray;
 };
-
-export { getShuffledArray };
