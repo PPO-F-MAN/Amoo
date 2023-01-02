@@ -1,6 +1,6 @@
 import { Box, Button, Container, Flex, FormControl, Input, useToast } from "@chakra-ui/react";
 import { useAtom } from "jotai";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import EnterIcon from "../../assets/hangman/enter.svg";
 import { answerAtom, updateUserAnswerAtom, userLifeAtom } from "../../atoms/hangman";
@@ -16,6 +16,10 @@ export const AnswerInput = ({ onOpen }: AnswerInputProps) => {
   const [value, setValue] = useState("");
   const [lifes, setLifes] = useAtom(userLifeAtom);
   const [answer] = useAtom(answerAtom);
+
+  useEffect(() => {
+    if (userAnswer.join("").length === LENGTH_OF_WORD) onOpen();
+  }, [userAnswer.join("")]);
 
   const decreaseLife = () => {
     setLifes(lifes - 1);
@@ -42,7 +46,6 @@ export const AnswerInput = ({ onOpen }: AnswerInputProps) => {
       }
 
       updateUserAnswer(value);
-      if (userAnswer.join("").length === LENGTH_OF_WORD) onOpen();
       return;
     }
 
