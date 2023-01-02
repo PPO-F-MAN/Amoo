@@ -12,10 +12,6 @@ export const stopStopwatchAtom = atom(null, (get, set) => {
   set(isStartedAtom, false);
 });
 
-export const plusOneToStopwatchAtom = atom(null, (get, set) => {
-  set(stopwatchAtom, get(stopwatchAtom) + 1);
-});
-
 export const addOneToCurrentNumberAtom = atom(null, (get, set) => {
   set(currentNumberAtom, get(currentNumberAtom) + 1);
 });
