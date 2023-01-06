@@ -2,9 +2,9 @@ import { Box, CircularProgress, Container, useDisclosure, VisuallyHidden } from 
 import { useAtom, useAtomValue } from "jotai";
 
 import { answerAtom, resetGameAtom, userLifeAtom } from "../../atoms/hangman";
-import { GameOverModal } from "../../components/common";
 import HangHeart from "../../components/common/HangHeart";
 import { AnswerBoard, AnswerInput } from "../../components/Hangman";
+import { GameOverModal } from "../../components/Hangman/GameOverModal";
 import { Heart } from "../../components/Hangman/Heart";
 import { LIFES } from "../../constants";
 
