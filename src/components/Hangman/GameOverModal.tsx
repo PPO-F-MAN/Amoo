@@ -7,6 +7,7 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 type GameStatements = "success" | "fail";
 
@@ -18,18 +19,18 @@ interface ModalProps {
 }
 
 export const GameOverModal = ({ status, isOpen, onClose, handleRestart }: ModalProps) => {
+  const navigate = useNavigate();
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
-      <ModalContent>
-        <ModalHeader m={"auto"}>{status === "success" ? "성공 🎉" : "실패 😭"} </ModalHeader>
-        <ModalCloseButton />
-        {/* <ModalBody>
-          <Lorem count={2} />
-        </ModalBody> */}
+      <ModalContent bg={"primary.900"}>
+        <ModalHeader color={"primary.200"} m={"auto"}>
+          {status === "success" ? "SUCCESS 🎉" : "FAIL 😭"}
+        </ModalHeader>
+        <ModalCloseButton color={"primary.100"} onClick={() => navigate("/game")} />
         <ModalFooter>
           <Button colorScheme="primary" mr={3} onClick={handleRestart}>
-            게임 다시 시작
+            RESTART
           </Button>
         </ModalFooter>
       </ModalContent>
