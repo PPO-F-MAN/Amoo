@@ -1,17 +1,16 @@
-import { Box, Button, Container, Flex, FormControl, Input, useToast } from "@chakra-ui/react";
+import { Box, Button, Container, Flex, FormControl, Input } from "@chakra-ui/react";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 
 import EnterIcon from "../../assets/hangman/enter.svg";
 import { answerAtom, updateUserAnswerAtom, userLifeAtom } from "../../atoms/hangman";
-import { LENGTH_OF_WORD, TOAST_SUBMITTED, TOAST_WRONG } from "../../constants";
+import { LENGTH_OF_WORD } from "../../constants";
 
 interface AnswerInputProps {
   onOpen: () => void;
 }
 
 export const AnswerInput = ({ onOpen }: AnswerInputProps) => {
-  const toast = useToast();
   const [userAnswer, updateUserAnswer] = useAtom(updateUserAnswerAtom);
   const [value, setValue] = useState("");
   const [lifes, setLifes] = useAtom(userLifeAtom);
@@ -41,7 +40,6 @@ export const AnswerInput = ({ onOpen }: AnswerInputProps) => {
 
     if (value.length === 1 && answer.includes(value)) {
       if (userAnswer.includes(value)) {
-        toast(TOAST_SUBMITTED);
         return;
       }
 
@@ -53,8 +51,6 @@ export const AnswerInput = ({ onOpen }: AnswerInputProps) => {
       onOpen();
       return;
     }
-
-    toast(TOAST_WRONG);
     decreaseLife();
   };
 
