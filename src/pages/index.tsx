@@ -19,7 +19,7 @@ const Home = () => {
         const random = Math.random();
 
         // TODO: 게임이 늘어났을 때 이 부분을 수정해야 함
-        if (random < 0.3) navigate("/game/game2");
+        if (random < 0.3) navigate("/game/one-to-fifty");
         else if (random < 0.6) navigate("/game/hangman");
         else navigate("/game/left-right");
       }
