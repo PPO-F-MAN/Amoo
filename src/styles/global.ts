@@ -24,6 +24,9 @@ export const theme = extendTheme({
         MsUserSelect: "none",
         userSelect: "none",
       },
+      body: {
+        background: "primary.900",
+      },
     },
   },
   fonts: {

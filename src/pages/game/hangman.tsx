@@ -1,5 +1,6 @@
 import { Box, CircularProgress, Container, useDisclosure, VisuallyHidden } from "@chakra-ui/react";
 import { useAtom, useAtomValue } from "jotai";
+import { useEffect, useRef } from "react";
 
 import { answerAtom, resetGameAtom, userLifeAtom } from "../../atoms/hangman";
 import HangHeart from "../../components/common/HangHeart";
@@ -13,6 +14,16 @@ const Hangman = () => {
   const [lifes, setLifes] = useAtom(userLifeAtom);
   const answer = useAtomValue(answerAtom);
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (containerRef.current) {
+      containerRef.current.style.height = "100vh";
+      window.visualViewport?.addEventListener("resize", resizeHeight);
+    }
+
+    return () => window.visualViewport?.removeEventListener("resize", resizeHeight);
+  }, [containerRef.current]);
 
   const handleRestart = () => {
     restartGame();
@@ -20,10 +31,16 @@ const Hangman = () => {
     onClose();
   };
 
+  const resizeHeight = () => {
+    const height = window.visualViewport?.height ? `${window.visualViewport?.height}px` : "100vh";
+    (containerRef.current as HTMLDivElement).style.height = height;
+    window.scrollTo({ top: 0, behavior: "auto" });
+  };
+
   return (
     <Box
+      ref={containerRef}
       bgColor="primary.900"
-      minH={"100vh"}
       display="flex"
       flexDirection={"column"}
       justifyContent={"center"}

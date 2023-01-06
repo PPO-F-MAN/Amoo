@@ -57,7 +57,7 @@ export const AnswerInput = ({ onOpen }: AnswerInputProps) => {
   return (
     <Container mt={"20px"}>
       <Box border="1px" borderColor="white">
-        <form onSubmit={(e) => submitAnswer(e)} onBlur={() => scrollTo(0, 0)}>
+        <form onSubmit={(e) => submitAnswer(e)}>
           <Flex margin="0" gap={2}>
             <FormControl>
               <Input
