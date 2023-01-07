@@ -1,49 +1,48 @@
 import { useAtomValue, useSetAtom } from "jotai";
-import { useCallback, useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 
-import {
-  isStartedAtom,
-  startStopwatchAtom,
-  stopStopwatchAtom,
-  stopwatchAtom,
-} from "../atoms/one-to-fifty";
+import { isRunningAtom, stopOneToFiftyAtom, stopwatchAtom } from "../atoms/one-to-fifty";
 
-const useOneToFifty = (delay = 10) => {
-  const stopwatchInterval = useRef<ReturnType<typeof setInterval>>();
-  const setStopwatch = useSetAtom(stopwatchAtom);
-  const startStopwatch = useSetAtom(startStopwatchAtom);
-  const stopStopwatch = useSetAtom(stopStopwatchAtom);
-  const isStarted = useAtomValue(isStartedAtom);
+// https://overreacted.io/making-setinterval-declarative-with-react-hooks/
+const useInterval = (callback: () => void, delay: number | null) => {
+  const savedCallback = useRef<() => void>();
+  const savedInterval = useRef<ReturnType<typeof setInterval>>();
 
   useEffect(() => {
-    if (!isStarted) clearInterval(stopwatchInterval.current);
-    if (isStarted)
-      stopwatchInterval.current = setInterval(() => {
-        setStopwatch((prev) => prev + 1);
-      }, delay);
+    savedCallback.current = callback;
+  });
 
-    return () => clearInterval(stopwatchInterval.current);
-  }, [isStarted, delay, setStopwatch]);
+  useEffect(() => {
+    const tick = () => {
+      savedCallback.current!();
+    };
 
-  const resetOneToFifty = useCallback(() => {
-    clearInterval(stopwatchInterval.current);
-    setStopwatch(0);
-  }, [setStopwatch]);
+    if (delay) {
+      savedInterval.current = setInterval(tick, delay);
 
-  const startOneToFifty = useCallback(() => {
-    resetOneToFifty();
-    startStopwatch();
-  }, [resetOneToFifty, startStopwatch]);
-
-  const stopOneToFifty = useCallback(() => {
-    stopStopwatch();
-  }, [stopStopwatch]);
-
-  return {
-    startOneToFifty,
-    stopOneToFifty,
-    resetOneToFifty,
-  };
+      return () => clearInterval(savedInterval.current);
+    }
+  }, [delay]);
 };
 
-export default useOneToFifty;
+const useOneToFiftyTimer = (delay = 10) => {
+  const isRunning = useAtomValue(isRunningAtom);
+  const setStopwatch = useSetAtom(stopwatchAtom);
+  const stopStopwatch = useSetAtom(stopOneToFiftyAtom);
+
+  useInterval(
+    () => {
+      setStopwatch((prev) => {
+        if (prev >= 9999) {
+          stopStopwatch();
+          return prev;
+        }
+
+        return prev + 1;
+      });
+    },
+    isRunning ? delay : null,
+  );
+};
+
+export default useOneToFiftyTimer;
