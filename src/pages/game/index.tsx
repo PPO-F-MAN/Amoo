@@ -33,17 +33,17 @@ const GameListPage = () => {
       />
       <HangHeart />
       <Link style={{ zIndex: LAYER.TOP }} to="/game/left-right">
-        <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
+        <Heading size={{ base: "2xl", lg: "3xl" }} color="white" fontWeight="100">
           left & right
         </Heading>
       </Link>
       <Link style={{ zIndex: LAYER.TOP }} to="/game/one-to-fifty">
-        <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
+        <Heading size={{ base: "2xl", lg: "3xl" }} color="white" fontWeight="100">
           1 to 50
         </Heading>
       </Link>
       <Link style={{ zIndex: LAYER.TOP }} to="/game/hangman">
-        <Heading size={{ base: "2xl", lg: "3xl" }} color="white">
+        <Heading size={{ base: "2xl", lg: "3xl" }} color="white" fontWeight="100">
           hangman
         </Heading>
       </Link>
