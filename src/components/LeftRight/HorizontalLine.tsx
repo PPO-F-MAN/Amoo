@@ -13,13 +13,8 @@ const HorizontalLine = () => {
   };
 
   const getStopColor = () => {
-    if (top === 70) return Primary[200];
-    if (top === 72) return Primary[300];
-    if (top === 74) return Primary[400];
-    if (top === 76) return Primary[500];
-    if (top === 78) return Primary[600];
-    if (top === 80) return Primary[700];
-    return Primary[800];
+    if (top >= 70 && top < 75) return `rgb(${(255*(75-top)+72*(top-70))/5}, ${(255*(75-top)+202*(top-70))/5}, ${(255*(75-top)+228*(top-70))/5})`;
+    if (top >= 75 && top <= 80) return `rgb(${(72*(80-top)+3*(top-75))/5}, ${(202*(80-top)+4*(top-75))/5}, ${(228*(80-top)+82*(top-75))/5})`;
   };
 
   return (
