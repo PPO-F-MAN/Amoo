@@ -45,20 +45,7 @@ const useTimer = ({ ms = 1000, initialTime = 100 }: useTimerProps) => {
       clearInterval(timerInterval.current);
       setGameStatus("end");
     }
-
-    if (time >= 100) {
-      setTop(70);
-    } else if (time >= 80) {
-      setTop(72);
-    } else if (time >= 60) {
-      setTop(74);
-    } else if (time >= 40) {
-      setTop(76);
-    } else if (time >= 20) {
-      setTop(78);
-    } else if (time >= 0) {
-      setTop(80);
-    }
+    setTop(80-(time/10));
 
     if (time > 100) resetTime();
   }, [resetTime, setGameStatus, setTop, time, timerInterval]);
